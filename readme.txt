@@ -2,9 +2,9 @@
 Contributors: dartiss
 Tags: code, embed, html, javascript, script
 Requires at least: 4.6
-Tested up to: 4.9
+Tested up to: 4.9.4
 Requires PHP: 5.3
-Stable tag: 2.2.2
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Code Embed provides a very easy and efficient way to embed code (JavaScript and 
 
 == Description ==
 
-Code Embed allows you to embed code - JavaScript and HTML primarily - in a post. This is incredibly useful for embedding video, etc, when required and is used, amongst other, by Mozilla. It cannot be used for server side code, such as PHP.
+Code Embed allows you to embed code (JavaScript and HTML - it can't be used for server-side code, such as PHP) in a post, without the content being changed by the editor. This is incredibly useful for embedding third-party scripts, etc. The plugin is used by many large sites, including Mozilla. 
 
 Key features include...
 
@@ -31,6 +31,8 @@ Technical specification...
 * Designed for both single and multi-site installations
 * PHP7 compatible
 * Fully internationalized, ready for translations **If you would like to add a translation to this plugin then please head to our [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/simple-embed-code "Translating WordPress") page**
+* GDPR compliant
+* See FAQ for Gutenberg compatibility
 
 Please visit the [Github page](https://github.com/dartiss/code-embed "Github") for the latest code development, planned enhancements and known issues.
 
@@ -40,9 +42,9 @@ Here's how easy it is to use…
 
 1. Once you have the plugin installed start a new post or page.
 2. In the `Custom Fields` meta box enter a name of CODE1 and your embed code as the value. Save this.
-3. In your post add `%CODE1%` where you wish the embed code to appear.
+3. In your post add `{{CODE1}}` where you wish the embed code to appear.
 
-And that's it - when the post or page is viewed `%CODE1%` will be replaced with the code that you asked to be embedded.
+And that's it - when the post or page is viewed `{{CODE1}}` will be replaced with the code that you asked to be embedded.
 
 **If you cannot find the location of the `Custom Fields` meta box on your post editor screen, please see the FAQ section for more information**
 
@@ -66,9 +68,9 @@ To embed in a post you need to find the meta box under the post named "Custom Fi
 
 Now create a new custom field with the name of your keyword - e.g. `CODE`. The value of this field will be the code that you wish to embed. Save this custom field.
 
-Now, wherever you wish the code to appear in your post, simply put the full identifier (opening, keyword and closing characters). For example, `%CODE%`.
+Now, wherever you wish the code to appear in your post, simply put the full identifier (opening, keyword and closing characters). For example, `{{CODE}}`.
 
-If you wish to embed multiple pieces of code within a post you can add a suffix to the keyword. So we may set up 2 custom fields named `CODE1` and `CODE2`. Then in our post we would specify either `%CODE1%` or `%CODE2%` depending on which you wish to display.
+If you wish to embed multiple pieces of code within a post you can add a suffix to the keyword. So we may set up 2 custom fields named `CODE1` and `CODE2`. Then in our post we would specify either `{{CODE1}}` or `{{CODE2}}` depending on which you wish to display.
 
 Don't forget - via the options screen you can change any part of this identifier to your own taste.
 
@@ -80,11 +82,11 @@ Obviously, be careful when embedding a URL that you have no control over, as thi
 
 For example, using the default options you could embed the contents of a URL using the following method...
 
-`%http://www.example.com/code.php%`
+`{{http://www.example.com/code.php}}`
 
 or
 
-`%https://www.example.com/code.html%`
+`{{https://www.example.com/code.html}}`
 
 == Global Embedding ==
 
@@ -92,7 +94,7 @@ You can also create global embeds - that is creating one piece of embed code and
 
 To do this simply make reference to an already defined (but unique) piece of embed code from another post or page.
 
-So, let's say in one post you define a custom field named `CODE1`. You can, if you wish, place `%CODE1%` not just in that post but also in another and it will work.
+So, let's say in one post you define a custom field named `CODE1`. You can, if you wish, place `{{CODE1}}` not just in that post but also in another and it will work.
 
 However, bear in mind that the embed code name must be unique - you can't have defined it in multiple posts otherwise the plugin won't know which one you're referring to (although it will report this and list the posts that it has been used in).
 
@@ -106,7 +108,7 @@ Natively you cannot use the embed facilities within sidebar widgets. However, if
 * In Administration, select the Widgets page from the Appearance menu. At the bottom there will be a set of Widget Logic options.
 * Ensure Use 'widget_content' filter is ticked and press Save.
 
-Although you cannot set up embed code within a widget you can make reference to it, for example by writing `%CODE1%` in the widget.
+Although you cannot set up embed code within a widget you can make reference to it, for example by writing `{{CODE1}}` in the widget.
 
 == Responsive Output Conversion ==
 
@@ -114,11 +116,11 @@ Responsive output is where an element on a web page dynamically resizes dependin
 
 Code Embed provides a simple suffix that can be added to an embed code and will convert the output to being responsive. This works best with videos.
 
-To use, when adding the embed code onto the page, simply add `_RES` to the end, before the final identifier. For example, `%CODE1_RES%`. The `_RES` should not be added to the custom fields definition.
+To use, when adding the embed code onto the page, simply add `_RES` to the end, before the final identifier. For example, `{{CODE1_RES}}`. The `_RES` should not be added to the custom fields definition.
 
 This will now output the embedded code full width, but a width that is dynamic and will resize when required.
 
-If you don't wish the output to be full width you can specify a maximum width by adding an additional `_x` on the end, where `x` is the required width in pixels. For example, `%CODE1_RES_500%` this will output `CODE1` as responsive but with a maximum width of 500 pixels.
+If you don't wish the output to be full width you can specify a maximum width by adding an additional `_x` on the end, where `x` is the required width in pixels. For example, `{{CODE1_RES_500}}` this will output `CODE1` as responsive but with a maximum width of 500 pixels.
 
 **It should be noted that this is an experimental addition and will not work in all circumstances.**
 
@@ -163,6 +165,14 @@ If you still can't find it then you may have a theme or plugin that removes this
 
 WordPress stores the custom field contents in a MySQL table using the `longtext` format. This can hold over 4 billion characters.
 
+== Does this work with Gutenberg? ==
+
+Right now, no, as the custom fields meta box will not be present. However, a rather smart plugin named [Custom Fields for Gutenberg](https://wordpress.org/plugins/custom-fields-gutenberg/) will add this functionality back in - with that active, you can happily continue to use this plugin.
+
+== Is this GDPR compliant? ==
+
+It is, in that it doesn't save any data that could be odds with GDPR compliance (i.e. it's compliant by design). However, if you use this to embed third-party scripts, then those scripts may not be and you will need to speak to the providers for further details.
+
 == Screenshots ==
 
 1. The custom field meta box with a Code Embed field set up to show some YouTube embed code
@@ -175,6 +185,17 @@ WordPress stores the custom field contents in a MySQL table using the `longtext`
 == Changelog ==
 
 [Learn more about my version numbering methodology](https://artiss.blog/2016/09/wordpress-plugin-versioning/ "WordPress Plugin Versioning") 
+
+= 2.3 =
+* Enhancement: All the code is now compliant with the full-fat VIP coding standards. It was no mean feat but, as a result, the plugin is more secure than ever before
+* Enhancement: The default is to now use double braces around your embed name, which is kind-of the universal default for template tags such as this. If you're an existing user, your current configuration won't change, though - this only affects new users
+* Enhancement: Improved translation output, including where I'd accidentally added an extra character to the text domain
+* Enhancement: Using the `checked` function on fields, rather than the form parameter
+* Enhancement: Added a useful links sidebar to the Help for both screens
+* Maintenance: Throughout, use Yoda conditions I now do
+* Maintenance: Added links to the sparkly new Github repo
+* Bug: When updating the options you sometimes didn't get a confirmation message. You do now!
+* Bug: Fixed a weird one where I was referencing a variable that I was never using ¯\_(ツ)_/¯
 
 = 2.2.2 =
 * Maintenance: Updated README to work better with new plugin directory format. Also, now converting all text to US English, which is the WordPress standard. Snazzy.
@@ -268,5 +289,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.2.2 =
-* Maintenance updates
+= 2.3 =
+* Numerous bug fixed and enhancements
