@@ -4,7 +4,7 @@ Tags: code, embed, html, javascript, script
 Requires at least: 4.6
 Tested up to: 4.9.4
 Requires PHP: 5.3
-Stable tag: 2.3
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,7 @@ Technical specification...
 * Licensed under [GPLv2 (or later)](http://wordpress.org/about/gpl/ "GNU General Public License")
 * Designed for both single and multi-site installations
 * PHP7 compatible
+* Passes [WordPress.com VIP](https://vip.wordpress.com) coding standards and fully compatible with their platform
 * Fully internationalized, ready for translations **If you would like to add a translation to this plugin then please head to our [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/simple-embed-code "Translating WordPress") page**
 * GDPR compliant
 * See FAQ for Gutenberg compatibility
@@ -184,7 +185,10 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 
 == Changelog ==
 
-[Learn more about my version numbering methodology](https://artiss.blog/2016/09/wordpress-plugin-versioning/ "WordPress Plugin Versioning") 
+[Learn more about my version numbering methodology](https://artiss.blog/2016/09/wordpress-plugin-versioning/ "WordPress Plugin Versioning")
+
+= 2.3.1 =
+* Bug: Fixed a variable naming issue that I may, or may not (I did), have created in the latest release
 
 = 2.3 =
 * Enhancement: All the code is now compliant with the full-fat VIP coding standards. It was no mean feat but, as a result, the plugin is more secure than ever before
@@ -289,5 +293,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.3 =
-* Numerous bug fixed and enhancements
+= 2.3.1 =
+* Minor bug fix
