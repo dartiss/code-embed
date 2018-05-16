@@ -21,7 +21,7 @@ function ce_initialisation() {
 
 	$version = get_option( 'code_embed_version' );
 
-	if ( code_embed_version !== $version ) {
+	if ( CODE_EMBED_VERSION !== $version ) {
 
 		// Set up default option values (if not already set)
 
