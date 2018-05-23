@@ -139,23 +139,24 @@ add_filter( 'widget_content', 'ce_filter' );
 
 function ce_quick_replace( $content = '', $options = '', $search = '' ) {
 
-	$start_pos  = strpos( $content, $options['opening_ident'] . $search, 0 );
-	$prefix_len = strlen( $options['opening_ident'] );
+	$start_pos = strpos( $content, $options['opening_ident'] . $search, 0 );
 
 	while ( false !== $start_pos ) {
 
-		$start_pos = $start_pos + strlen( $options['opening_ident'] );
-		$end_pos   = strpos( $content, $options['closing_ident'], $start_pos );
+		$end_pos = strpos( $content, $options['closing_ident'], $start_pos + 1 );
 
 		if ( false !== $end_pos ) {
-			$url  = substr( $content, $start_pos, $end_pos - $start_pos );
+			$url  = substr( $content, $start_pos + 1, $end_pos - $start_pos - 1 );
 			$file = ce_get_file( $url );
 			if ( false !== $file ) {
-				$content = str_replace( $options['opening_ident'] . $url . $options['closing_ident'], $file['file'], $content );
+				$content = str_replace( $options['opening_ident'] . $url . $options['closing_ident'], $file, $content );
 			} else {
 				ce_report_error( __( 'File could not be fetched', 'simple-embed-code' ), 'Code Embed', false );
 			}
 		}
+
+		$start_pos = strpos( $content, $options['opening_ident'] . $search, 0 );
+
 	}
 
 	return $content;
