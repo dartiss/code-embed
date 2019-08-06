@@ -2,7 +2,7 @@
 Contributors: dartiss
 Tags: code, embed, html, javascript, script
 Requires at least: 4.6
-Tested up to: 4.9.6
+Tested up to: 5.2.2
 Requires PHP: 5.3
 Stable tag: 2.3.2
 License: GPLv2 or later
@@ -11,6 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Code Embed provides a very easy and efficient way to embed code (JavaScript and HTML) in your posts and pages.
 
 == Description ==
+
+**Note for users of WordPress 5.0 and above: please see the FAQ for details on using this plugin with Gutenberg**
 
 Code Embed allows you to embed code (JavaScript and HTML - it can't be used for server-side code, such as PHP) in a post, without the content being changed by the editor. This is incredibly useful for embedding third-party scripts, etc. The plugin is used by many large sites, including Mozilla. 
 
@@ -36,6 +38,8 @@ Technical specification...
 * See FAQ for Gutenberg compatibility
 
 Please visit the [Github page](https://github.com/dartiss/code-embed "Github") for the latest code development, planned enhancements and known issues.
+
+Icons made by [Freepik](https://www.flaticon.com/authors/freepik "Freepik") from [www.flaticon.co](https://www.flaticon.com/ "Flaticon") is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0 "Creative Commons BY 3.0").
 
 == Getting Started ==
 
@@ -150,6 +154,12 @@ Voila! It's ready to go.
 
 == Frequently Asked Questions ==
 
+== Can I use this plugin with the new editor (aka Gutenberg) / WordPress 5.0 and above? ==
+
+The new editor (Gutenberg) removes the custom fields meta box and, as a result, you are unable to add or edit existing code embeds. However, the plugin will continue to work, in all other ways.
+
+However, a rather smart plugin named [Custom Fields for Gutenberg](https://wordpress.org/plugins/custom-fields-gutenberg/) will add this functionality back in - with that active, you can happily continue to use this plugin, even with WordPress 5.0 or later.
+
 = My code doesn't work =
 
 If your code contains the characters `]]>` then you'll find that it doesn't - WordPress modifies this itself.
@@ -165,10 +175,6 @@ If you still can't find it then you may have a theme or plugin that removes this
 = What's the maximum size of the embed code that I can save in a custom field? =
 
 WordPress stores the custom field contents in a MySQL table using the `longtext` format. This can hold over 4 billion characters.
-
-== Does this work with Gutenberg? ==
-
-Right now, no, as the custom fields meta box will not be present. However, a rather smart plugin named [Custom Fields for Gutenberg](https://wordpress.org/plugins/custom-fields-gutenberg/) will add this functionality back in - with that active, you can happily continue to use this plugin.
 
 == Is this GDPR compliant? ==
 
