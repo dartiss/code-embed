@@ -2,7 +2,7 @@
 Contributors: dartiss
 Tags: code, embed, html, javascript, script
 Requires at least: 4.6
-Tested up to: 5.2.2
+Tested up to: 4.9.12
 Requires PHP: 5.3
 Stable tag: 2.3.2
 License: GPLv2 or later
