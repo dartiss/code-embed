@@ -1,8 +1,9 @@
 === Code Embed ===
 Contributors: dartiss
+Donate link: https://artiss.blog/donate
 Tags: code, embed, html, javascript, script
 Requires at least: 4.6
-Tested up to: 4.9.12
+Tested up to: 5.3
 Requires PHP: 5.3
 Stable tag: 2.3.2
 License: GPLv2 or later
@@ -26,16 +27,6 @@ Key features include...
 * Add a simple suffix to the embed code to convert videos to responsive output
 * Embed an external script directly using just the URL
 * And much, much more!
-
-Technical specification...
-
-* Licensed under [GPLv2 (or later)](http://wordpress.org/about/gpl/ "GNU General Public License")
-* Designed for both single and multi-site installations
-* PHP7 compatible
-* Passes [WordPress.com VIP](https://vip.wordpress.com) coding standards and fully compatible with their platform
-* Fully internationalized, ready for translations **If you would like to add a translation to this plugin then please head to our [Translating WordPress](https://translate.wordpress.org/projects/wp-plugins/simple-embed-code "Translating WordPress") page**
-* GDPR compliant
-* See FAQ for Gutenberg compatibility
 
 Please visit the [Github page](https://github.com/dartiss/code-embed "Github") for the latest code development, planned enhancements and known issues.
 
@@ -152,11 +143,14 @@ Voila! It's ready to go.
 
 == Frequently Asked Questions ==
 
-== Can I use this plugin with the new editor (aka Gutenberg) / WordPress 5.0 and above? ==
+== Can I use this plugin with the new block editor (aka Gutenberg) / WordPress 5.0 and above? ==
 
-The new editor (Gutenberg) removes the custom fields meta box and, as a result, you are unable to add or edit existing code embeds. However, the plugin will continue to work, in all other ways.
+Yes, you can. By default, custom fields are hidden inside the block editor but can be revealed.
 
-However, a rather smart plugin named [Custom Fields for Gutenberg](https://wordpress.org/plugins/custom-fields-gutenberg/) will add this functionality back in - with that active, you can happily continue to use this plugin, even with WordPress 5.0 or later.
+1. Edit a post
+2. Click the settings button (three dots) in the top, right-hand corner
+3. Go to Options
+4. You will find a tick box to display the 'Custom Fields' meta box
 
 = My code doesn't work =
 
