@@ -38,12 +38,6 @@ if ( ( ! empty( $_POST ) ) && ( check_admin_referer( 'code-embed-profile', 'code
 		$options['closing_ident'] = '}}';
 	}
 
-	if ( ! empty( $_POST['code_embed_debug'] ) ) {
-		$options['debug'] = sanitize_text_field( wp_unslash( $_POST['code_embed_debug'] ) ); // Input var okay.
-	} else {
-		$options['debug'] = '';
-	}
-
 	if ( isset( $_POST['code_embed_excerpt'] ) ) {
 		$options['excerpt'] = sanitize_text_field( wp_unslash( $_POST['code_embed_excerpt'] ) ); // Input var okay.
 	} else {
@@ -63,13 +57,6 @@ $options = get_option( 'artiss_code_embed' );
 <form method="post" action="<?php echo esc_html( get_bloginfo( 'wpurl' ) ) . '/wp-admin/options-general.php?page=ce-options'; ?>">
 
 <table class="form-table">
-<tr>
-<th scope="row"><label for="code_embed_debug"><?php echo esc_html( ucwords( __( 'Hide debug', 'simple-embed-code' ) ) ); ?></label></th>
-<td><input type="checkbox" name="code_embed_debug" value="1"
-<?php checked( '1', $options['debug'] ); ?>
-/><?php esc_html_e( 'Hide debug HTML comments in source', 'simple-embed-code' ); ?></td>
-</tr>
-
 <tr>
 <th scope="row"><label for="code_embed_excerpt"><?php echo esc_html( ucwords( __( 'Allow in excerpts', 'simple-embed-code' ) ) ); ?></label></th>
 <td><input type="checkbox" name="code_embed_excerpt" value="1"

@@ -3,9 +3,9 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, javascript, script
 Requires at least: 4.6
-Tested up to: 5.3
+Tested up to: 5.4
 Requires PHP: 5.3
-Stable tag: 2.3.2
+Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -185,6 +185,9 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 
 [Learn more about my version numbering methodology](https://artiss.blog/2016/09/wordpress-plugin-versioning/ "WordPress Plugin Versioning")
 
+= 2.3.3 =
+* Enhancement: I've removed the debug code. I allowed to be switched off but I've never used it and it may not have switched off properly anyway. So it's gone.
+
 = 2.3.2 =
 * Bug: Fixed another pesky bug that was affecting embedded URLs. My code to do this was years old and I couldn't understand why I'd written it the way I had. So I've re-written it from scratch.
 
@@ -294,5 +297,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.3.2 =
-* Minor bug fix
+= 2.3.3 =
+* Minor change to code output

@@ -1,24 +1,21 @@
 <?php
 /**
-* Administration Menu Options
-*
-* Add various adminstration menu options
-*
-* @package  simple-embed-code
-*/
+ * Administration Menu Options
+ *
+ * Add various adminstration menu options
+ *
+ * @package  simple-embed-code
+ */
 
 /**
-* Add Settings link to plugin list
-*
-* Add a Settings link to the options listed against this plugin
-*
-* @since    1.6
-*
-* @param    string  $links  Current links
-* @param    string  $file   File in use
-* @return   string          Links, now with settings added
-*/
-
+ * Add Settings link to plugin list
+ *
+ * Add a Settings link to the options listed against this plugin
+ *
+ * @param  string $links  Current links.
+ * @param  string $file   File in use.
+ * @return string         Links, now with settings added.
+ */
 function ce_add_settings_link( $links, $file ) {
 
 	static $this_plugin;
@@ -38,17 +35,14 @@ function ce_add_settings_link( $links, $file ) {
 add_filter( 'plugin_action_links', 'ce_add_settings_link', 10, 2 );
 
 /**
-* Add meta to plugin details
-*
-* Add options to plugin meta line
-*
-* @since    1.6
-*
-* @param    string  $links  Current links
-* @param    string  $file   File in use
-* @return   string          Links, now with settings added
-*/
-
+ * Add meta to plugin details
+ *
+ * Add options to plugin meta line
+ *
+ * @param  string $links  Current links.
+ * @param  string $file   File in use.
+ * @return string         Links, now with settings added.
+ */
 function ce_set_plugin_meta( $links, $file ) {
 
 	if ( false !== strpos( $file, 'code-embed.php' ) ) {
@@ -56,6 +50,10 @@ function ce_set_plugin_meta( $links, $file ) {
 		$links = array_merge( $links, array( '<a href="https://github.com/dartiss/code-embed">' . __( 'Github', 'simple-embed-code' ) . '</a>' ) );
 
 		$links = array_merge( $links, array( '<a href="https://wordpress.org/plugins/simple-embed-code/">' . __( 'Support', 'simple-embed-code' ) . '</a>' ) );
+
+				$links = array_merge( $links, array( '<a href="https://artiss.blog/donate">' . __( 'Donate', 'simple-embed-code' ) . '</a>' ) );
+
+		$links = array_merge( $links, array( '<a href="https://wordpress.org/support/plugin/simple-embed-code/reviews/#new-post">' . __( 'Write a Review', 'simple-embed-code' ) . '&nbsp;⭐️⭐️⭐️⭐️⭐️</a>' ) );
 	}
 
 	return $links;
@@ -64,18 +62,15 @@ function ce_set_plugin_meta( $links, $file ) {
 add_filter( 'plugin_row_meta', 'ce_set_plugin_meta', 10, 2 );
 
 /**
-* Code Embed Menu
-*
-* Add a new option to the Admin menu and context menu
-*
-* @since    1.4
-*
-* @uses ce_help         Return help text
-*/
-
+ * Code Embed Menu
+ *
+ * Add a new option to the Admin menu and context menu
+ *
+ * @uses ce_help  Return help text
+ */
 function ce_menu() {
 
-	// Add search sub-menu
+	// Add search sub-menu.
 
 	global $ce_search_hook;
 
@@ -83,7 +78,7 @@ function ce_menu() {
 
 	add_action( 'load-' . $ce_search_hook, 'ce_add_search_help' );
 
-	// Add options sub-menu
+	// Add options sub-menu.
 
 	global $ce_options_hook;
 
@@ -96,15 +91,12 @@ function ce_menu() {
 add_action( 'admin_menu', 'ce_menu' );
 
 /**
-* Add Options Help
-*
-* Add help tab to options screen
-*
-* @since    2.0
-*
-* @uses     ce_options_help    Return help text
-*/
-
+ * Add Options Help
+ *
+ * Add help tab to options screen
+ *
+ * @uses ce_options_help  Return help text.
+ */
 function ce_add_options_help() {
 
 	global $ce_options_hook;
@@ -126,15 +118,12 @@ function ce_add_options_help() {
 }
 
 /**
-* Add Search Help
-*
-* Add help tab to search screen
-*
-* @since    2.0
-*
-* @uses     ce_search_help    Return help text
-*/
-
+ * Add Search Help
+ *
+ * Add help tab to search screen
+ *
+ * @uses ce_search_help  Return help text.
+ */
 function ce_add_search_help() {
 
 	global $ce_search_hook;
@@ -156,43 +145,34 @@ function ce_add_search_help() {
 }
 
 /**
-* Code Embed Options
-*
-* Define an option screen
-*
-* @since    1.4
-*/
-
+ * Code Embed Options
+ *
+ * Define an option screen
+ */
 function ce_options() {
 
-	include_once( WP_PLUGIN_DIR . '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) . 'options-screen.php' );
+	include_once WP_PLUGIN_DIR . '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) . 'options-screen.php';
 
 }
 
 /**
-* Code Embed Search
-*
-* Define a the search screen
-*
-* @since    1.6
-*/
-
+ * Code Embed Search
+ *
+ * Define a the search screen
+ */
 function ce_search() {
 
-	include_once( WP_PLUGIN_DIR . '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) . 'search-screen.php' );
+	include_once WP_PLUGIN_DIR . '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) . 'search-screen.php';
 
 }
 
 /**
-* Code Embed Options Help
-*
-* Return help text for options screen
-*
-* @since    1.5
-*
-* @return   string  Help Text
-*/
-
+ * Code Embed Options Help
+ *
+ * Return help text for options screen
+ *
+ * @return string  Help Text.
+ */
 function ce_options_help() {
 
 	$help_text  = '<p>' . __( 'Use this screen to modify the various settings, including the identifiers and keyword used to specify your embedded code.', 'simple-embed-code' ) . '</p>';
@@ -205,15 +185,12 @@ function ce_options_help() {
 }
 
 /**
-* Code Embed Search Help
-*
-* Return help text for search screen
-*
-* @since    1.6
-*
-* @return   string  Help Text
-*/
-
+ * Code Embed Search Help
+ *
+ * Return help text for search screen
+ *
+ * @return string  Help Text
+ */
 function ce_search_help() {
 
 	$help_text  = '<p>' . __( 'This screen allows you to search for the post and pages that a particular code embed has been used in.', 'simple-embed-code' ) . '</p>';
@@ -224,15 +201,12 @@ function ce_search_help() {
 }
 
 /**
-* Code Embed Help Sidebar
-*
-* Return sidebar help text
-*
-* @since    2.3
-*
-* @return   string  Help Text
-*/
-
+ * Code Embed Help Sidebar
+ *
+ * Return sidebar help text
+ *
+ * @return string  Help Text.
+ */
 function ce_help_sidebar() {
 
 	$help_text  = '<p><strong>' . __( 'For more information:', 'simple-embed-code' ) . '</strong></p>';
