@@ -39,7 +39,6 @@ function ce_initialisation() {
 			'opening_ident' => '{{',
 			'keyword_ident' => 'CODE',
 			'closing_ident' => '}}',
-			'debug'         => '',
 			'excerpts'      => '',
 		);
 

@@ -179,9 +179,6 @@ function ce_quick_replace( $content = '', $options = '', $search = '' ) {
 function ce_generate_code( $html, $responsive = '', $max_width = '', $debug = '' ) {
 
 	$code = "\n";
-	if ( 1 !== $debug ) {
-		$code .= '<!-- Code Embed v' . CODE_EMBED_VERSION . " -->\n";
-	}
 
 	if ( false !== $max_width ) {
 		$code .= '<div style="width: ' . $max_width . 'px; max-width: 100%">';
@@ -202,9 +199,6 @@ function ce_generate_code( $html, $responsive = '', $max_width = '', $debug = ''
 	}
 
 	$code .= "\n";
-	if ( 1 !== $debug ) {
-		$code .= '<!-- ' . __( 'End of Code Embed output', 'simple-embed-code' ) . " -->\n";
-	}
 
 	return $code;
 }
