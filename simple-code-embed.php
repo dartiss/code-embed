@@ -1,9 +1,9 @@
 <?php
 /**
 Plugin Name: Code Embed
-Plugin URI: https://github.com/dartiss/code-embed
+Plugin URI: https://wordpress.org/plugins/simple-embed-code/
 Description: Code Embed provides a very easy and efficient way to embed code (JavaScript and HTML) in your posts and pages.
-Version: 2.3.3
+Version: 2.3.4
 Author: David Artiss
 Author URI: https://artiss.blog
 Text Domain: simple-embed-code
@@ -11,7 +11,7 @@ Text Domain: simple-embed-code
 @package Code-Embed
  */
 
-define( 'CODE_EMBED_VERSION', '2.3.3' );
+define( 'CODE_EMBED_VERSION', '2.3.4' );
 
 // Include all the various functions.
 

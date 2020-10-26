@@ -3,9 +3,9 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, javascript, script
 Requires at least: 4.6
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.3
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ Code Embed provides a very easy and efficient way to embed code (JavaScript and 
 
 == Description ==
 
-**Note for users of WordPress 5.0 and above: please see the FAQ for details on using this plugin with Gutenberg**
+**Note for users of WordPress 5.0 and above: please see the FAQ for details on using this plugin with the block editor**
 
 Code Embed allows you to embed code (JavaScript and HTML - it can't be used for server-side code, such as PHP) in a post, without the content being changed by the editor. This is incredibly useful for embedding third-party scripts, etc. The plugin is used by many large sites, including Mozilla. 
 
@@ -28,7 +28,9 @@ Key features include...
 * Embed an external script directly using just the URL
 * And much, much more!
 
-Please visit the [Github page](https://github.com/dartiss/code-embed "Github") for the latest code development, planned enhancements and known issues.
+Iconography is courtesy of the very talented [Janki Rathod](https://www.linkedin.com/in/jankirathore/) ♥️
+
+👉 Please visit the [Github page](https://github.com/dartiss/code-embed "Github") for the latest code development, planned enhancements and known issues 👈
 
 == Getting Started ==
 
@@ -183,13 +185,17 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 
 == Changelog ==
 
-[Learn more about my version numbering methodology](https://artiss.blog/2016/09/wordpress-plugin-versioning/ "WordPress Plugin Versioning")
+I use symantic versioning.
+
+= 2.3.4 =
+* Bug: Fixed minor error that occurred due to the removal of the debug code in the last release. Sorry about that.
 
 = 2.3.3 =
-* Enhancement: I've removed the debug code. I allowed to be switched off but I've never used it and it may not have switched off properly anyway. So it's gone.
+* Enhancement: I've removed the debug code. I allowed to be switched off but I've never used it and it may not have switched off properly anyway. So it's gone
+* Enhancement: Added some additional plugin meta
 
 = 2.3.2 =
-* Bug: Fixed another pesky bug that was affecting embedded URLs. My code to do this was years old and I couldn't understand why I'd written it the way I had. So I've re-written it from scratch.
+* Bug: Fixed another pesky bug that was affecting embedded URLs. My code to do this was years old and I couldn't understand why I'd written it the way I had. So I've re-written it from scratch
 
 = 2.3.1 =
 * Bug: Fixed a variable naming issue that I may, or may not (I did), have created in the latest release
@@ -297,5 +303,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.3.3 =
-* Minor change to code output
+= 2.3.4 =
+* Minor bug fix
