@@ -12,3 +12,5 @@ Features include...
 * Search for embedding code via a simple search option
 * Add a simple suffix to the embed code to convert videos to responsive output
 * Embed an external script directly using just the URL
+
+<p align="right"><a href="https://wordpress.org/plugins/simple-embed-code/"><img src="https://img.shields.io/wordpress/plugin/dt/simple-embed-code?label=wp.org%20downloads&style=for-the-badge">&nbsp;<img src="https://img.shields.io/wordpress/plugin/stars/simple-embed-code?color=orange&style=for-the-badge"></a></p>

@@ -100,7 +100,7 @@ function ce_filter( $content ) {
 
 			// Build the string of code to replace with
 
-			$replace = ce_generate_code( $html, $responsive, $max_width, $options['debug'] );
+			$replace = ce_generate_code( $html, $responsive, $max_width );
 
 			// Now modify all references
 
@@ -172,11 +172,10 @@ function ce_quick_replace( $content = '', $options = '', $search = '' ) {
 * @param    $html           string  The embed code (required)
 * @param    $responsive     string  Responsive output required? (optional)
 * @param    $max_width      string  Maximum width of responsive output (optional)
-* @param    $debug          boolean Whether to suppress debug output (1) or not
 * @return                   string  The embed code
 */
 
-function ce_generate_code( $html, $responsive = '', $max_width = '', $debug = '' ) {
+function ce_generate_code( $html, $responsive = '', $max_width = '' ) {
 
 	$code = "\n";
 
