@@ -3,7 +3,7 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, javascript, script
 Requires at least: 4.6
-Tested up to: 5.5
+Tested up to: 5.6
 Requires PHP: 5.3
 Stable tag: 2.3.4
 License: GPLv2 or later
@@ -185,7 +185,7 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 
 == Changelog ==
 
-I use symantic versioning.
+I use semantic versioning, with the first release being 1.0.
 
 = 2.3.4 =
 * Bug: Fixed minor error that occurred due to the removal of the debug code in the last release. Sorry about that.
