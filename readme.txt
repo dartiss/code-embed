@@ -3,7 +3,7 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, javascript, script
 Requires at least: 4.6
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 5.3
 Stable tag: 2.3.4
 License: GPLv2 or later
@@ -28,7 +28,7 @@ Key features include...
 * Embed an external script directly using just the URL
 * And much, much more!
 
-Iconography is courtesy of the very talented [Janki Rathod](https://www.linkedin.com/in/jankirathore/) ♥️
+Iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.com/jankirathore) ♥️
 
 👉 Please visit the [Github page](https://github.com/dartiss/code-embed "Github") for the latest code development, planned enhancements and known issues 👈
 
