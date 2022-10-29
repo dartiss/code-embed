@@ -3,7 +3,7 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, javascript, script
 Requires at least: 4.6
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 5.3
 Stable tag: 2.3.4
 License: GPLv2 or later
