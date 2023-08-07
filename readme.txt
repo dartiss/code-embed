@@ -174,7 +174,7 @@ Otherwise, it's likely to be your code and not this plugin. The best way to conf
 
 WordPress stores the custom field contents in a MySQL table using the `longtext` format. This can hold over 4 billion characters.
 
-==Is this GDPR compliant? =
+= Is this GDPR compliant? =
 
 It is, in that it doesn't save any data that could be odds with GDPR compliance (i.e. it's compliant by design). However, if you use this to embed third-party scripts, then those scripts may not be and you will need to speak to the providers for further details.
 
