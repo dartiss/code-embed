@@ -9,13 +9,11 @@ Stable tag: 2.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Code Embed provides a very easy and efficient way to embed code (JavaScript and HTML) in your posts and pages.
+🧩 Code Embed provides a very easy and efficient way to embed code (JavaScript, CSS and HTML) in your posts and pages.
 
 == Description ==
 
-**Note for users of WordPress 5.0 and above: please see the FAQ for details on using this plugin with the block editor**
-
-Code Embed allows you to embed code (JavaScript and HTML - it can't be used for server-side code, such as PHP) in a post, without the content being changed by the editor. This is incredibly useful for embedding third-party scripts, etc. The plugin is used by many large sites, including Mozilla. 
+Code Embed allows you to embed code (JavaScript, CSS and HTML - it can't be used for server-side code, such as PHP) in a post, without the content being changed by the editor. This is incredibly useful for embedding third-party scripts, etc. The plugin is used by many large sites, including Mozilla. 
 
 Key features include...
 
@@ -34,7 +32,9 @@ Iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.c
 
 == Getting Started ==
 
-Here's how easy it is to use…
+To use this plugin, you need to have custom fields enabled on your site. If you're using the block editor, you may need to switch this on first - please scroll down to the next section to learn how to do this. If you're using the classic editor then you'll find the custom fields at the bottom of the editor screen.
+
+Once you have custom fields switched on, here's how easy it is to use…
 
 1. Once you have the plugin installed start a new post or page.
 2. In the `Custom Fields` meta box enter a name of CODE1 and your embed code as the value. Save this.
@@ -42,15 +42,34 @@ Here's how easy it is to use…
 
 And that's it - when the post or page is viewed `{{CODE1}}` will be replaced with the code that you asked to be embedded.
 
-**If you cannot find the location of the `Custom Fields` meta box on your post editor screen, please see the FAQ section for more information**
-
 This should get you started - for more information and advanced options please see below.. Alternatively, there's a fantastic guide at [Elftronix](http://www.elftronix.com/free-easy-plugin-add-javascript-to-wordpress-posts-pages/ "Free Easy Plugin! Add Javascript to WordPress Posts & Pages") which I would recommend.
 
 Although this plugin works for both posts and pages for simplicity I will simply refer to posts - bear in mind that pages work in the same way.
 
-== Options Screen ==
+== Using this plugin with the block editor (aka Gutenberg) ==
 
-In the administration menu there is a settings option named "Code Embed".
+By default, custom fields are hidden inside the block editor but can be revealed.
+
+1. Edit or create a post
+2. Click the settings button (three dots) in the top, right-hand corner
+3. Go to Preferences
+4. Click the Panels tab
+5. You will find a button to toggle the 'Custom Fields' meta box - make sure this is toggled to "on"
+6. A button should appear titled "Enable & Reload" - you'll need to click on that and wait for the page to reload before the custom fields will appear
+
+Check out the screenshots for how the custom fields should look.
+
+== I can't find the custom fields ==
+
+For block editor users, I'm assuming you've done the above. For classic editor users, the custom fields should be present by default. In all cases they should appear at the bottom of the editor screen.
+
+If they're not present then you may have a theme or plugin that removes this or may have a problem with your WordPress installation - you will need to try normal diagnostics to try and resolve this, including requesting help on [the WordPress support forum](https://wordpress.org/support/forum/how-to-and-troubleshooting/ "Fixing WordPress Forum").
+
+Please bear in mind that the custom fields functionality is part of WordPress so it would be greatly appreciated if you don't give me poor reviews in this situation as, I say, this component is not part of this plugin but, by using it, keeps this plugin simple to use and bloat-free :)
+
+== The Code Embed Options Screen ==
+
+Whilst in WP Admin, if you go to Settings -> Code Embed, you'll be able to access the options that are available for this plugin.
 
 Code embedding is performed via a special keyword that you must use to uniquely identify where you wish the code to appear. This consist of an opening identifier (some that that goes at the beginning), a keyword and then a closing identifier. You may also add a suffix to the end of the keyword if you wish to embed multiple pieces of code within the same post.
 
@@ -58,7 +77,7 @@ From this options screen you can specify the above identifier that you wish to u
 
 The options screen is only available to those that with a capability of able to manage options or greater. All the other Code Embed menu options are available to users with a capability to edit posts or greater.
 
-== Embedding ==
+== How to Embed Code ==
 
 To embed in a post you need to find the meta box under the post named "Custom Fields". If this is missing you may need to add it by clicking on the "Screen Options" tab at the top of the new post screen.
 
@@ -70,7 +89,7 @@ If you wish to embed multiple pieces of code within a post you can add a suffix 
 
 Don't forget - via the options screen you can change any part of this identifier to your own taste.
 
-== URL Embedding ==
+== How to Embed Code from an External URL ==
 
 If you specify a URL within your post, surrounded by your choice of identifiers, then the contents of the URL will be embedded within your post.
 
@@ -84,7 +103,7 @@ or
 
 `{{https://www.example.com/code.html}}`
 
-== Global Embedding ==
+== How to Use Global Embedding ==
 
 You can also create global embeds - that is creating one piece of embed code and using it in multiple posts or pages.
 
@@ -145,32 +164,17 @@ Voila! It's ready to go.
 
 == Frequently Asked Questions ==
 
-== Can I use this plugin with the new block editor (aka Gutenberg) / WordPress 5.0 and above? ==
-
-Yes, you can. By default, custom fields are hidden inside the block editor but can be revealed.
-
-1. Edit a post
-2. Click the settings button (three dots) in the top, right-hand corner
-3. Go to Options
-4. You will find a tick box to display the 'Custom Fields' meta box
-
 = My code doesn't work =
 
 If your code contains the characters `]]>` then you'll find that it doesn't - WordPress modifies this itself.
 
 Otherwise, it's likely to be your code and not this plugin. The best way to confirm this is to look at the source of the page and compare the code output with what you embedded. Does it match? If it does, then your code is at fault.
 
-= I can't find the Custom Fields meta box =
-
-This 'meta box' is not added by this plugin but is built into WordPress. If you cannot find it on the post or page editor screen then click the 'Screen Options' tab in the top right-hand corner. Ensure 'Custom Fields' is ticked. Please see the screenshots section for an image on how this appears on a 'box fresh' installation of WordPress.
-
-If you still can't find it then you may have a theme or plugin that removes this or may have a problem with your WordPress installation - you will need to try normal diagnostics to try and resolve this, including requesting help on [the WordPress support forum](https://wordpress.org/support/forum/how-to-and-troubleshooting/ "Fixing WordPress Forum"). It would be greatly appreciated if you don't give me poor reviews in this situation as, I say, this component is not part of this plugin but, by using it, keeps this plugin simple to use and bloat-free :)
-
 = What's the maximum size of the embed code that I can save in a custom field? =
 
 WordPress stores the custom field contents in a MySQL table using the `longtext` format. This can hold over 4 billion characters.
 
-== Is this GDPR compliant? ==
+==Is this GDPR compliant? =
 
 It is, in that it doesn't save any data that could be odds with GDPR compliance (i.e. it's compliant by design). However, if you use this to embed third-party scripts, then those scripts may not be and you will need to speak to the providers for further details.
 
