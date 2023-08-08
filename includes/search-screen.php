@@ -1,12 +1,12 @@
 <?php
 /**
-* Code Embed Search
-*
-* Allow the user to change the default options
-*
-* @package  simple-embed-code
-* @since    1.6
-*/
+ * Code Embed Search
+ *
+ * Allow the user to change the default options
+ *
+ * @package  simple-embed-code
+ */
+
 ?>
 <div class="wrap">
 <h1><?php echo esc_html( ucwords( __( 'Code Embed search', 'simple-embed-code' ) ) ); ?></h1>
@@ -17,7 +17,7 @@ echo '<p>' . esc_html__( 'Enter the suffix to search for below and press the \'S
 
 <?php
 
-// Get the suffix from the submitted field
+// Get the suffix from the submitted field.
 
 if ( ! empty( $_POST['ce_suffix'] ) && check_admin_referer( 'code-embed-search', 'code_embed_search_nonce' ) ) { // Input var okay.
 	$suffix = htmlspecialchars( sanitize_title( wp_unslash( $_POST['ce_suffix'] ) ) );  // Input var okay.
@@ -25,22 +25,22 @@ if ( ! empty( $_POST['ce_suffix'] ) && check_admin_referer( 'code-embed-search',
 	$suffix = '';
 }
 
-// Fetch options into an array
+// Fetch options into an array.
 
 $options = get_option( 'artiss_code_embed' );
 ?>
 
-<form method="post" action="<?php echo esc_html( get_bloginfo( 'wpurl' ) ) . '/wp-admin/tools.php?page=ce-search'; ?>">
+<form method="post" action="<?php echo esc_url( get_bloginfo( 'wpurl' ) ) . '/wp-admin/tools.php?page=ce-search'; ?>">
 
 	<?php echo esc_html( $options['opening_ident'] ) . esc_html( $options['keyword_ident'] ); ?>
 
-	<input type="text" size="6" name="ce_suffix" value="<?php echo esc_html( $suffix ); ?>"/>
+	<input type="text" size="6" name="ce_suffix" value="<?php echo esc_attr( $suffix ); ?>"/>
 
 	<?php echo esc_html( $options['closing_ident'] ); ?>
 
 	<?php wp_nonce_field( 'code-embed-search', 'code_embed_search_nonce', true, true ); ?>
 
-	<input type="submit" name="Submit" class="button-primary" value="<?php esc_html_e( 'Search', 'simple-embed-code' ); ?>"/>
+	<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e( 'Search', 'simple-embed-code' ); ?>"/>
 
 </form>
 
@@ -62,9 +62,9 @@ if ( '' !== $suffix ) {
 		foreach ( $meta as $meta_data ) {
 			$html       = $meta_data->meta_value;
 			$post_title = $meta_data->post_title;
-			$post_id    = $meta_data->ID;
+			$post_ident = $meta_data->ID;
 
-			// Switch background colours as the code changes
+			// Switch background colours as the code changes.
 
 			if ( $html !== $prev_html ) {
 				if ( $color === $color1 ) {
@@ -74,7 +74,7 @@ if ( '' !== $suffix ) {
 			}
 
 			echo '<tr style="background-color: #' . esc_html( $color ) . "\">\n";
-			echo '<td><a href="' . esc_html( home_url() ) . '/wp-admin/post.php?post=' . esc_html( $post_id ) . '&action=edit" style="color: #f00;">' . esc_html( $post_title ) . "</td>\n";
+			echo '<td><a href="' . esc_url( home_url() ) . '/wp-admin/post.php?post=' . esc_attr( $post_ident ) . '&action=edit" style="color: #f00;">' . esc_html( $post_title ) . "</td>\n";
 			echo '<td><textarea readonly="readonly" rows="3" cols="80">' . esc_html( $html ) . "</textarea></td>\n";
 			echo "</tr>\n";
 

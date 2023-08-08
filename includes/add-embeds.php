@@ -1,45 +1,42 @@
 <?php
 /**
-* Add Embed to Posts
-*
-* Functions to add embed code to posts
-*
-* @package  simple-embed-code
-*/
+ * Add Embed to Posts
+ *
+ * Functions to add embed code to posts
+ *
+ * @package  simple-embed-code
+ */
 
 /**
-* Add filter to add embed code
-*
-* Filter to add embed to any posts
-*
-* @since    1.5
-*
-* @uses     ce_get_embed_code       Get embed code from other posts
-*
-* @param    string  $content        Post content without embedded code
-* @return   string                  Post content with embedded code
-*/
-
+ * Add filter to add embed code
+ *
+ * Filter to add embed to any posts
+ *
+ * @uses     ce_get_embed_code    Get embed code from other posts
+ *
+ * @param    string $content      Post content without embedded code.
+ * @return   string               Post content with embedded code.
+ */
 function ce_filter( $content ) {
 
 	global $post;
 
-	// Set initial values
+	// Set initial values.
 
 	$options    = get_option( 'artiss_code_embed' );
 	$found_pos  = strpos( $content, $options['opening_ident'] . $options['keyword_ident'], 0 );
 	$prefix_len = strlen( $options['opening_ident'] . $options['keyword_ident'] );
 
-	// Loop around the post content looking for all requests for code embeds
+	// Loop around the post content looking for all requests for code embeds.
 
 	while ( false !== $found_pos ) {
 
-		// Get the position of the closing identifier - ignore if one is not found
+		// Get the position of the closing identifier - ignore if one is not found!
 
 		$end_pos = strpos( $content, $options['closing_ident'], $found_pos + $prefix_len );
 		if ( false !== $end_pos ) {
 
-			// Extract the suffix
+			// Extract the suffix.
 
 			$suffix_len = $end_pos - ( $found_pos + $prefix_len );
 			if ( 0 === $suffix_len ) {
@@ -49,7 +46,7 @@ function ce_filter( $content ) {
 			}
 			$full_suffix = $suffix;
 
-			// Check for responsive part of suffix
+			// Check for responsive part of suffix.
 
 			$responsive = false;
 			$max_width  = false;
@@ -60,8 +57,8 @@ function ce_filter( $content ) {
 
 			if ( false !== $res_pos ) {
 
-				// If responsive section found, check it's at the end of has an underscore afterwards
-				// Otherwise it may be part of something else
+				// If responsive section found, check it's at the end of has an underscore afterwards.
+				// Otherwise it may be part of something else.
 
 				if ( strlen( $suffix ) - 4 === $res_pos ) {
 					$responsive = true;
@@ -80,29 +77,29 @@ function ce_filter( $content ) {
 				}
 			}
 
-			// Get the custom field data and replace in the post
+			// Get the custom field data and replace in the post.
 
 			$search = $options['opening_ident'] . $options['keyword_ident'] . $suffix . $options['closing_ident'];
 
-			// Get the meta for the current post
+			// Get the meta for the current post.
 
 			$post_meta = get_post_meta( $post->ID, $options['keyword_ident'] . $suffix, false );
 			if ( isset( $post_meta[0] ) ) {
 				$html = $post_meta[0];
 			} else {
-				// No meta found, so look for it elsewhere
+				// No meta found, so look for it elsewhere.
 				$html = ce_get_embed_code( $options['keyword_ident'], $suffix );
 			}
 
-			// Build the string to search for
+			// Build the string to search for.
 
 			$search = $options['opening_ident'] . $options['keyword_ident'] . $full_suffix . $options['closing_ident'];
 
-			// Build the string of code to replace with
+			// Build the string of code to replace with.
 
 			$replace = ce_generate_code( $html, $responsive, $max_width );
 
-			// Now modify all references
+			// Now modify all references.
 
 			$content = str_replace( $search, $replace, $content );
 
@@ -110,11 +107,11 @@ function ce_filter( $content ) {
 		$found_pos = strpos( $content, $options['opening_ident'] . $options['keyword_ident'], $found_pos + 1 );
 	}
 
-	// Loop around the post content looking for HTTP addresses
+	// Loop around the post content looking for HTTP addresses.
 
 	$content = ce_quick_replace( $content, $options, 'http://' );
 
-	// Loop around the post content looking for HTTPS addresses
+	// Loop around the post content looking for HTTPS addresses.
 
 	$content = ce_quick_replace( $content, $options, 'https://' );
 
@@ -125,18 +122,15 @@ add_filter( 'the_content', 'ce_filter' );
 add_filter( 'widget_content', 'ce_filter' );
 
 /**
-* Quick Replace
-*
-* Function to do a quick search/replace of the content
-*
-* @since    2.0
-*
-* @param    $content        string  The content
-* @param    $options        string  The options array
-* @param    $search         string  The string to search for
-* @return                   string  The updated content
-*/
-
+ * Quick Replace
+ *
+ * Function to do a quick search/replace of the content
+ *
+ * @param    string $content    The content.
+ * @param    string $options    The options array.
+ * @param    string $search     The string to search for.
+ * @return   string             The updated content
+ */
 function ce_quick_replace( $content = '', $options = '', $search = '' ) {
 
 	$start_pos = strpos( $content, $options['opening_ident'] . $search, 0 );
@@ -163,18 +157,15 @@ function ce_quick_replace( $content = '', $options = '', $search = '' ) {
 }
 
 /**
-* Generate Embed Code
-*
-* Function to generate the embed code that will be output
-*
-* @since    2.0
-*
-* @param    $html           string  The embed code (required)
-* @param    $responsive     string  Responsive output required? (optional)
-* @param    $max_width      string  Maximum width of responsive output (optional)
-* @return                   string  The embed code
-*/
-
+ * Generate Embed Code
+ *
+ * Function to generate the embed code that will be output
+ *
+ * @param    string $html           The embed code (required).
+ * @param    string $responsive     Responsive output required? (optional).
+ * @param    string $max_width      Maximum width of responsive output (optional).
+ * @return   string                 The embed code
+ */
 function ce_generate_code( $html, $responsive = '', $max_width = '' ) {
 
 	$code = "\n";
@@ -203,22 +194,19 @@ function ce_generate_code( $html, $responsive = '', $max_width = '' ) {
 }
 
 /**
-* Get the Global Embed Code
-*
-* Function to look for and, if available, return the global embed code
-*
-* @since    1.6
-*
-* @uses     ce_report_error         Generate an error message
-*
-* @param    $ident          string  The embed code opening identifier
-* @param    $suffix         string  The embed code suffix
-* @return                   string  The embed code (or error)
-*/
-
+ * Get the Global Embed Code
+ *
+ * Function to look for and, if available, return the global embed code
+ *
+ * @uses   ce_report_error     Generate an error message
+ *
+ * @param  string $ident       The embed code opening identifier.
+ * @param  string $suffix      The embed code suffix.
+ * @return string              The embed code (or error)
+ */
 function ce_get_embed_code( $ident, $suffix ) {
 
-	// Meta was not found in current post so look across meta table - find the number of distinct code results
+	// Meta was not found in current post so look across meta table - find the number of distinct code results.
 
 	$meta_name = $ident . $suffix;
 	global $wpdb;
@@ -227,21 +215,21 @@ function ce_get_embed_code( $ident, $suffix ) {
 
 	if ( 0 < $records ) {
 
-		// Results were found
+		// Results were found.
 
 		$meta          = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value, post_title, ID FROM $wpdb->postmeta, $wpdb->posts WHERE meta_key = %s AND post_id = ID", $meta_name ) ); // @codingStandardsIgnoreLine -- requires the latest data when called, so caching is inappropriate
 		$total_records = $wpdb->num_rows;
 
 		if ( 1 === $records ) {
 
-			// Only one unique code result returned so assume this is the global embed
+			// Only one unique code result returned so assume this is the global embed.
 
 			foreach ( $meta as $meta_data ) {
 				$html = $meta_data->meta_value;
 			}
 		} else {
 
-			// More than one unique code result returned, so output the list of posts
+			// More than one unique code result returned, so output the list of posts.
 
 			/* translators: %1$s: embed name, %2$d: number of pieces of code being stored with that name, %3$d: number of posts using that embed name */
 			$error = sprintf( __( 'Cannot use %1$s as a global code as it is being used to store %2$d unique pieces of code in %3$d posts', 'simple-embed-code' ), $meta_name, $records, $total_records );
@@ -249,7 +237,7 @@ function ce_get_embed_code( $ident, $suffix ) {
 		}
 	} else {
 
-		// No meta code was found so write out an error
+		// No meta code was found so write out an error.
 
 		/* translators: %s: the embed name */
 		$html = ce_report_error( sprintf( __( 'No embed code was found for %s', 'simple-embed-code' ), $meta_name ), 'Code Embed', false );
@@ -259,17 +247,13 @@ function ce_get_embed_code( $ident, $suffix ) {
 }
 
 /**
-* Fetch a file
-*
-* Use WordPress API to fetch a file and check results
-*
-* @since    2.0
-*
-* @param    string  $filein     File name to fetch
-* @param    string  $header     Only get headers?
-* @return   string              Array containing file contents or false to indicate a failure
-*/
-
+ * Fetch a file
+ *
+ * Use WordPress API to fetch a file and check results
+ *
+ * @param  string $filein      File name to fetch.
+ * @return string              Array containing file contents or false to indicate a failure
+ */
 function ce_get_file( $filein ) {
 
 	if ( function_exists( 'vip_safe_wp_remote_get' ) ) {
@@ -294,18 +278,15 @@ function ce_get_file( $filein ) {
 }
 
 /**
-* Report an error (1.4)
-*
-* Function to report an error
-*
-* @since    1.6
-*
-* @param    $error          string  Error message
-* @param    $plugin_name    string  The name of the plugin
-* @param    $echo           string  True or false, depending on whether you wish to return or echo the results
-* @return                   string  True or the output text
-*/
-
+ * Report an error
+ *
+ * Function to report an error
+ *
+ * @param  string $error            Error message.
+ * @param  string $plugin_name      The name of the plugin.
+ * @param  string $echo             True or false, depending on whether you wish to return or echo the results.
+ * @return string                   True or the output text
+ */
 function ce_report_error( $error, $plugin_name, $echo = true ) {
 
 	$output = '<p style="color: #f00; font-weight: bold;">' . $plugin_name . ': ' . $error . "</p>\n";
@@ -318,4 +299,3 @@ function ce_report_error( $error, $plugin_name, $echo = true ) {
 	}
 
 }
-
