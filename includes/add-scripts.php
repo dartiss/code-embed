@@ -1,23 +1,20 @@
 <?php
 /**
-* Add Scripts
-*
-* Add CSS to the main theme
-*
-* @package  simple-embed-code
-*/
+ * Add Scripts
+ *
+ * Add CSS to the main theme
+ *
+ * @package  simple-embed-code
+ */
 
 /**
-* Add scripts to theme
-*
-* Add styles to the main theme
-*
-* @since        2.0
-*/
-
+ * Add scripts to theme
+ *
+ * Add styles to the main theme
+ */
 function ce_main_scripts() {
 
-	wp_register_style( 'ce_responsive', plugins_url( 'css/video-container.min.css', dirname( __FILE__ ) ) );
+	wp_register_style( 'ce_responsive', plugins_url( 'css/video-container.min.css', dirname( __FILE__ ) ), array(), CODE_EMBED_VERSION );
 
 	wp_enqueue_style( 'ce_responsive' );
 

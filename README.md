@@ -1,6 +1,6 @@
 # Code Embed
 
-<img src="https://ps.w.org/simple-embed-code/assets/icon-128x128.png" align="left">Code Embed allows you to embed code – JavaScript and HTML primarily – in a post. This is incredibly useful for embedding video, etc, when required and is used, amongst other, by Mozilla.
+<img src="https://ps.w.org/simple-embed-code/assets/icon-128x128.png" align="left">Code Embed allows you to embed code – JavaScript, CSS and HTML primarily – in a post. This is incredibly useful for embedding video, etc, when required and is used, amongst other, by Mozilla.
 
 It cannot be used for server side code, such as PHP.
 

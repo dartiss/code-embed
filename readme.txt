@@ -1,11 +1,11 @@
 === Code Embed ===
 Contributors: dartiss
 Donate link: https://artiss.blog/donate
-Tags: code, embed, html, javascript, script
+Tags: code, embed, html, css, javascript, script
 Requires at least: 4.6
 Tested up to: 6.3
 Requires PHP: 7.4
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,17 +34,18 @@ Iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.c
 
 To use this plugin, you need to have custom fields enabled on your site. If you're using the block editor, you may need to switch this on first - please scroll down to the next section to learn how to do this. If you're using the classic editor then you'll find the custom fields at the bottom of the editor screen.
 
+Although this plugin works for both posts and pages for simplicity I will simply refer to posts - bear in mind that pages work in the same way.
+
 Once you have custom fields switched on, here's how easy it is to use…
 
-1. Once you have the plugin installed start a new post or page.
-2. In the `Custom Fields` meta box enter a name of CODE1 and your embed code as the value. Save this.
-3. In your post add `{{CODE1}}` where you wish the embed code to appear.
+1. Once you have the plugin installed start a new post.
+2. Scroll down to the bottom of the screen and look for the "Custom Fields" section.
+2. Under "Add New Custom Field" enter a name of `CODE1` and your embed code as the value
+3. In your post content add `{{CODE1}}` where you wish the embed code to appear.
 
-And that's it - when the post or page is viewed `{{CODE1}}` will be replaced with the code that you asked to be embedded.
+And that's it - when the post viewed or previewed `{{CODE1}}` will be replaced with the code that you asked to be embedded.
 
 This should get you started - for more information and advanced options please see below.. Alternatively, there's a fantastic guide at [Elftronix](http://www.elftronix.com/free-easy-plugin-add-javascript-to-wordpress-posts-pages/ "Free Easy Plugin! Add Javascript to WordPress Posts & Pages") which I would recommend.
-
-Although this plugin works for both posts and pages for simplicity I will simply refer to posts - bear in mind that pages work in the same way.
 
 == Using this plugin with the block editor (aka Gutenberg) ==
 
@@ -63,7 +64,7 @@ Check out the screenshots for how the custom fields should look.
 
 For block editor users, I'm assuming you've done the above. For classic editor users, the custom fields should be present by default. In all cases they should appear at the bottom of the editor screen.
 
-If they're not present then you may have a theme or plugin that removes this or may have a problem with your WordPress installation - you will need to try normal diagnostics to try and resolve this, including requesting help on [the WordPress support forum](https://wordpress.org/support/forum/how-to-and-troubleshooting/ "Fixing WordPress Forum").
+If they're not present then you may have a theme or plugin that removes this or may have a problem with your WordPress installation - you will need to try the usual diagnostics to try and resolve this, including requesting help on [the WordPress support forum](https://wordpress.org/support/forum/how-to-and-troubleshooting/ "Fixing WordPress Forum").
 
 Please bear in mind that the custom fields functionality is part of WordPress so it would be greatly appreciated if you don't give me poor reviews in this situation as, I say, this component is not part of this plugin but, by using it, keeps this plugin simple to use and bloat-free :)
 
@@ -174,22 +175,31 @@ Otherwise, it's likely to be your code and not this plugin. The best way to conf
 
 WordPress stores the custom field contents in a MySQL table using the `longtext` format. This can hold over 4 billion characters.
 
+= Can I use the same embed name on multiple pages? =
+
+Yes you can. If you wish to share one set of embed code across multiple posts, though, then you need to give it a unique name (see "How to Use Global Embedding", above).
+
 = Is this GDPR compliant? =
 
 It is, in that it doesn't save any data that could be odds with GDPR compliance (i.e. it's compliant by design). However, if you use this to embed third-party scripts, then those scripts may not be and you will need to speak to the providers for further details.
 
 == Screenshots ==
 
-1. The custom field meta box with a Code Embed field set up to show some YouTube embed code
-2. Example embed code in a post
-3. The resultant video from the previous example code
-4. The options screen
-5. The search screen, showing search results
-6. The Custom Fields meta-box and the screen switch - both highlighted in red
+1. The options screen
+2. The custom field meta box with a Code Embed field set up to show some YouTube embed code
+3. Example embed code in a post
+4. The block editor Settings screen showing the Custom field switch at the bottom
+5. The search screen showing the results of a search for {{CODE1}}
 
 == Changelog ==
 
 I use semantic versioning, with the first release being 1.0.
+
+= 2.3.5 =
+* Enhancement: Cleared up a big batch of code quality issues. Now it ticks all the boxes for both the WordPress and VIP rulesets in PHPCS.
+* Enhancement: A new, richer, header has been added to the plugin file.
+* Enhancement: The plugin version number is now used as a revision for the script queueing - this means that it be cached by the browser until the plugin release changes.
+* Enhancement: Lots of changes made to the README - hopeful it should read easier than before!
 
 = 2.3.4 =
 * Bug: Fixed minor error that occurred due to the removal of the debug code in the last release. Sorry about that.
@@ -307,5 +317,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.3.4 =
-* Minor bug fix
+= 2.3.5 =
+* Assorted minor enhancements - mainly code quality

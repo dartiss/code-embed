@@ -1,20 +1,20 @@
 <?php
 /**
-* Code Embed Options
-*
-* Allow the user to change the default options
-*
-* @package  simple-embed-code
-* @since    1.4
-*
-* @uses ce_help             Return help text
-*/
+ * Code Embed Options
+ *
+ * Allow the user to change the default options
+ *
+ * @package  simple-embed-code
+ *
+ * @uses ce_help             Return help text
+ */
+
 ?>
 <div class="wrap">
 <h1><?php echo esc_html( ucwords( __( 'Code Embed options', 'simple-embed-code' ) ) ); ?></h1>
 <?php
 
-// If options have been updated on screen, update the database
+// If options have been updated on screen, update the database.
 
 if ( ( ! empty( $_POST ) ) && ( check_admin_referer( 'code-embed-profile', 'code_embed_profile_nonce' ) ) ) { // Input var okay.
 
@@ -49,12 +49,12 @@ if ( ( ! empty( $_POST ) ) && ( check_admin_referer( 'code-embed-profile', 'code
 	echo '<div class="updated fade"><p><strong>' . esc_html( __( 'Settings saved.', 'simple-embed-code' ) ) . "</strong></p></div>\n";
 }
 
-// Fetch options into an array
+// Fetch options into an array.
 
 $options = get_option( 'artiss_code_embed' );
 ?>
 
-<form method="post" action="<?php echo esc_html( get_bloginfo( 'wpurl' ) ) . '/wp-admin/options-general.php?page=ce-options'; ?>">
+<form method="post" action="<?php echo esc_url( get_bloginfo( 'wpurl' ) ) . '/wp-admin/options-general.php?page=ce-options'; ?>">
 
 <table class="form-table">
 <tr>
@@ -71,30 +71,30 @@ $options = get_option( 'artiss_code_embed' );
 
 <tr>
 <th scope="row"><label for="code_embed_keyword"><?php echo esc_html( ucwords( __( 'Keyword', 'simple-embed-code' ) ) ); ?></label></th>
-<td><input type="text" size="12" maxlength="12" name="code_embed_keyword" value="<?php echo esc_html( $options['keyword_ident'] ); ?>"/><p class="description"><?php esc_html_e( 'The keyword that is used to name the custom field and then place in your post where the code should be embedded. A suffix on any type can then be placed on the end.', 'simple-embed-code' ); ?></p></td>
+<td><input type="text" size="12" maxlength="12" name="code_embed_keyword" value="<?php echo esc_attr( $options['keyword_ident'] ); ?>"/><p class="description"><?php esc_html_e( 'The keyword that is used to name the custom field and then place in your post where the code should be embedded. A suffix on any type can then be placed on the end.', 'simple-embed-code' ); ?></p></td>
 </tr>
 
 <tr>
 <th scope="row"><label for="code_embed_opening"><?php echo esc_html( ucwords( __( 'Opening Identifier', 'simple-embed-code' ) ) ); ?></label></th>
-<td><input type="text" size="4" maxlength="4" name="code_embed_opening" value="<?php echo esc_html( $options['opening_ident'] ); ?>"/><p class="description"><?php esc_html_e( 'The character(s) that must be placed in the post before the keyword to uniquely identify it.', 'simple-embed-code' ); ?></p></td>
+<td><input type="text" size="4" maxlength="4" name="code_embed_opening" value="<?php echo esc_attr( $options['opening_ident'] ); ?>"/><p class="description"><?php esc_html_e( 'The character(s) that must be placed in the post before the keyword to uniquely identify it.', 'simple-embed-code' ); ?></p></td>
 </tr>
 
 <tr>
 <th scope="row"><label for="code_embed_closing"><?php echo esc_html( ucwords( __( 'Closing Identifier', 'simple-embed-code' ) ) ); ?></label></th>
-<td><input type="text" size="4" maxlength="4" name="code_embed_closing" value="<?php echo esc_html( $options['closing_ident'] ); ?>"/><p class="description"><?php esc_html_e( 'The character(s) that must be placed in the post after the keyword to uniquely identify it.', 'simple-embed-code' ); ?></p></td>
+<td><input type="text" size="4" maxlength="4" name="code_embed_closing" value="<?php echo esc_attr( $options['closing_ident'] ); ?>"/><p class="description"><?php esc_html_e( 'The character(s) that must be placed in the post after the keyword to uniquely identify it.', 'simple-embed-code' ); ?></p></td>
 </tr>
 
 </table>
 
 <?php wp_nonce_field( 'code-embed-profile', 'code_embed_profile_nonce', true, true ); ?>
 
-<br/><input type="submit" name="Submit" class="button-primary" value="<?php echo esc_html( ucwords( __( 'Save changes', 'simple-embed-code' ) ) ); ?>"/>
+<br/><input type="submit" name="Submit" class="button-primary" value="<?php echo esc_attr( ucwords( __( 'Save changes', 'simple-embed-code' ) ) ); ?>"/>
 
 </form>
 
 <?php
 
-// How to embed
+// How to embed.
 
 echo '<br/><h3>' . esc_html( ucwords( __( 'How to embed', 'simple-embed-code' ) ) ) . "</h3>\n";
 
