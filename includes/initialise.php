@@ -37,7 +37,7 @@ function ce_initialisation() {
 			'opening_ident' => '{{',
 			'keyword_ident' => 'CODE',
 			'closing_ident' => '}}',
-			'excerpts'      => '',
+			'excerpt'       => '',
 		);
 
 		// Merge existing and default options - any missing from existing will take the default settings.

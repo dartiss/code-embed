@@ -3,9 +3,9 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, css, javascript, script
 Requires at least: 4.6
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 2.3.5
+Stable tag: 2.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -195,6 +195,9 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 
 I use semantic versioning, with the first release being 1.0.
 
+= 2.3.6 =
+* Bug: Fixed a variable that was incorrectly assigned. It happens. I guess.
+
 = 2.3.5 =
 * Enhancement: Cleared up a big batch of code quality issues. Now it ticks all the boxes for both the WordPress and VIP rulesets in PHPCS.
 * Enhancement: A new, richer, header has been added to the plugin file.
@@ -317,5 +320,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.3.5 =
-* Assorted minor enhancements - mainly code quality
+= 2.3.6 =
+* Minor bug fix
