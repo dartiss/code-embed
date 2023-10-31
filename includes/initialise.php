@@ -6,6 +6,12 @@
  *
  * @package  simple-embed-code
  */
+
+/**
+ * Initialisation
+ *
+ * All initial processes.
+ */
 function ce_initialisation() {
 
 	// Add exerpt filter, if required.

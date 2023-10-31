@@ -14,10 +14,9 @@
  */
 function ce_main_scripts() {
 
-	wp_register_style( 'ce_responsive', plugins_url( 'css/video-container.min.css', dirname( __FILE__ ) ), array(), CODE_EMBED_VERSION );
+	wp_register_style( 'ce_responsive', plugins_url( 'css/video-container.min.css', __DIR__ ), array(), CODE_EMBED_VERSION );
 
 	wp_enqueue_style( 'ce_responsive' );
-
 }
 
 add_action( 'wp_enqueue_scripts', 'ce_main_scripts' );

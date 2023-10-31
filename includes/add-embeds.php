@@ -62,13 +62,11 @@ function ce_filter( $content ) {
 
 				if ( strlen( $suffix ) - 4 === $res_pos ) {
 					$responsive = true;
-				} else {
-					if ( '_' === substr( $suffix, $res_pos + 4, 1 ) ) {
-						$responsive = true;
-						$max_width  = substr( $suffix, $res_pos + 5 );
-						if ( ! is_numeric( $max_width ) ) {
-							$max_width = '';
-						}
+				} elseif ( '_' === substr( $suffix, $res_pos + 4, 1 ) ) {
+					$responsive = true;
+					$max_width  = substr( $suffix, $res_pos + 5 );
+					if ( ! is_numeric( $max_width ) ) {
+						$max_width = '';
 					}
 				}
 
@@ -140,7 +138,7 @@ function ce_quick_replace( $content = '', $options = '', $search = '' ) {
 		$end_pos = strpos( $content, $options['closing_ident'], $start_pos + 1 );
 
 		if ( false !== $end_pos ) {
-			$url  = substr( $content, $start_pos + 1, $end_pos - $start_pos - 1 );
+			$url  = substr( $content, $start_pos + 2, $end_pos - $start_pos - 2 );
 			$file = ce_get_file( $url );
 			if ( false !== $file ) {
 				$content = str_replace( $options['opening_ident'] . $url . $options['closing_ident'], $file, $content );
@@ -284,18 +282,17 @@ function ce_get_file( $filein ) {
  *
  * @param  string $error            Error message.
  * @param  string $plugin_name      The name of the plugin.
- * @param  string $echo             True or false, depending on whether you wish to return or echo the results.
+ * @param  string $echo_out         True or false, depending on whether you wish to return or echo the results.
  * @return string                   True or the output text
  */
-function ce_report_error( $error, $plugin_name, $echo = true ) {
+function ce_report_error( $error, $plugin_name, $echo_out = true ) {
 
 	$output = '<p style="color: #f00; font-weight: bold;">' . $plugin_name . ': ' . $error . "</p>\n";
 
-	if ( $echo ) {
+	if ( $echo_out ) {
 		echo esc_html( $output );
 		return true;
 	} else {
 		return $output;
 	}
-
 }

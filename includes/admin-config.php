@@ -85,7 +85,6 @@ function ce_menu() {
 	$ce_options_hook = add_submenu_page( 'options-general.php', __( 'Code Embed Settings', 'simple-embed-code' ), __( 'Code Embed', 'simple-embed-code' ), 'manage_options', 'ce-options', 'ce_options' );
 
 	add_action( 'load-' . $ce_options_hook, 'ce_add_options_help' );
-
 }
 
 add_action( 'admin_menu', 'ce_menu' );
@@ -152,7 +151,6 @@ function ce_add_search_help() {
 function ce_options() {
 
 	include_once WP_PLUGIN_DIR . '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) . 'options-screen.php';
-
 }
 
 /**
@@ -163,7 +161,6 @@ function ce_options() {
 function ce_search() {
 
 	include_once WP_PLUGIN_DIR . '/' . str_replace( basename( __FILE__ ), '', plugin_basename( __FILE__ ) ) . 'search-screen.php';
-
 }
 
 /**
