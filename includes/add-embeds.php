@@ -133,12 +133,15 @@ function ce_quick_replace( $content = '', $options = '', $search = '' ) {
 
 	$start_pos = strpos( $content, $options['opening_ident'] . $search, 0 );
 
+	$open_len  = strlen( $options['opening_ident'] );
+	$close_len = strlen( $options['closing_ident'] );
+
 	while ( false !== $start_pos ) {
 
 		$end_pos = strpos( $content, $options['closing_ident'], $start_pos + 1 );
 
 		if ( false !== $end_pos ) {
-			$url  = substr( $content, $start_pos + 2, $end_pos - $start_pos - 2 );
+			$url  = substr( $content, $start_pos + $open_len, $end_pos - $start_pos - $close_len );
 			$file = ce_get_file( $url );
 			if ( false !== $file ) {
 				$content = str_replace( $options['opening_ident'] . $url . $options['closing_ident'], $file, $content );
