@@ -5,7 +5,7 @@ Tags: code, embed, html, css, javascript, script
 Requires at least: 4.6
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 2.3.7
+Stable tag: 2.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -195,6 +195,9 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 
 I use semantic versioning, with the first release being 1.0.
 
+= 2.3.8 =
+* Bug: You know that vulnerability I fixed in 2.3.7? It fixed that but broke something else. That should now resolved. Apologies for that.
+
 = 2.3.7 =
 * Bug: Fixed a bug which created a potentual vulnerabilty
 * Enhancement: Improved code quality, using the latest version of PHPCS and WordPress sniffs
@@ -324,5 +327,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.3.7 =
-* Important vulnerability fix
+= 2.3.8 =
+* Critical bug fix
