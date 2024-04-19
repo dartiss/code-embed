@@ -333,4 +333,4 @@ versions of this plugin
 == Upgrade Notice ==
 
 = 2.3.9 =
-* Minor improvement to output to elliminate unwanted carriage returns
+* Minor improvement to output to eliminate unwanted carriage returns
