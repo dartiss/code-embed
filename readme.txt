@@ -1,15 +1,15 @@
 === Code Embed ===
 Contributors: dartiss
 Donate link: https://artiss.blog/donate
-Tags: code, embed, html, css, javascript, script
+Tags: code, embed, html, css, javascript
 Requires at least: 4.6
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 2.3.8
+Stable tag: 2.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-🧩 Code Embed provides a very easy and efficient way to embed code (JavaScript, CSS and HTML) in your posts and pages.
+Code Embed provides a very easy and efficient way to embed code (JavaScript, CSS and HTML) in your posts and pages.
 
 == Description ==
 
@@ -26,9 +26,9 @@ Key features include...
 * Embed an external script directly using just the URL
 * And much, much more!
 
-Iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.com/jankirathore) ♥️
+Iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.com/jankirathore).
 
-👉 Please visit the [Github page](https://github.com/dartiss/code-embed "Github") for the latest code development, planned enhancements and known issues 👈
+**Please visit the [Github page](https://github.com/dartiss/code-embed "Github") for the latest code development, planned enhancements and known issues**
 
 == Getting Started ==
 
@@ -195,6 +195,11 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 
 I use semantic versioning, with the first release being 1.0.
 
+= 2.3.9 =
+* Enhancement: So, let me tell you a story. To make the output look neat, I was adding carriage returns to the embeds. Except, if you want to embed something part way through a line it can look... well... wrong. And all for it looking clean. Remember kids, cleanlyness isn't always next to Godlyness. Needless to say, those rogue carriage returns are gone
+* Enhancement: Whilst I was at it, I updated some of the settings code to a brand-spanking new version, which I'm sharing across all my plugins
+* Enhancement: Tidied up some of the assets, including adding a blueprint for WordPress Playground
+
 = 2.3.8 =
 * Bug: You know that vulnerability I fixed in 2.3.7? It fixed that but broke something else. That should now resolved. Apologies for that.
 
@@ -327,5 +332,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.3.8 =
-* Critical bug fix
+= 2.3.9 =
+* Minor improvement to output to elliminate unwanted carriage returns
