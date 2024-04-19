@@ -1,65 +1,11 @@
 <?php
 /**
- * Administration Menu Options
+ * Add screens
  *
- * Add various adminstration menu options
+ * Add settings and tools screens.
  *
  * @package  simple-embed-code
  */
-
-/**
- * Add Settings link to plugin list
- *
- * Add a Settings link to the options listed against this plugin
- *
- * @param  string $links  Current links.
- * @param  string $file   File in use.
- * @return string         Links, now with settings added.
- */
-function ce_add_settings_link( $links, $file ) {
-
-	static $this_plugin;
-
-	if ( ! $this_plugin ) {
-		$this_plugin = plugin_basename( __FILE__ );
-	}
-
-	if ( false !== strpos( $file, 'code-embed.php' ) ) {
-		$settings_link = '<a href="admin.php?page=ce-options">' . __( 'Settings', 'simple-embed-code' ) . '</a>';
-		array_unshift( $links, $settings_link );
-	}
-
-	return $links;
-}
-
-add_filter( 'plugin_action_links', 'ce_add_settings_link', 10, 2 );
-
-/**
- * Add meta to plugin details
- *
- * Add options to plugin meta line
- *
- * @param  string $links  Current links.
- * @param  string $file   File in use.
- * @return string         Links, now with settings added.
- */
-function ce_set_plugin_meta( $links, $file ) {
-
-	if ( false !== strpos( $file, 'code-embed.php' ) ) {
-
-		$links = array_merge( $links, array( '<a href="https://github.com/dartiss/code-embed">' . __( 'Github', 'simple-embed-code' ) . '</a>' ) );
-
-		$links = array_merge( $links, array( '<a href="https://wordpress.org/plugins/simple-embed-code/">' . __( 'Support', 'simple-embed-code' ) . '</a>' ) );
-
-				$links = array_merge( $links, array( '<a href="https://artiss.blog/donate">' . __( 'Donate', 'simple-embed-code' ) . '</a>' ) );
-
-		$links = array_merge( $links, array( '<a href="https://wordpress.org/support/plugin/simple-embed-code/reviews/#new-post">' . __( 'Write a Review', 'simple-embed-code' ) . '&nbsp;⭐️⭐️⭐️⭐️⭐️</a>' ) );
-	}
-
-	return $links;
-}
-
-add_filter( 'plugin_row_meta', 'ce_set_plugin_meta', 10, 2 );
 
 /**
  * Code Embed Menu

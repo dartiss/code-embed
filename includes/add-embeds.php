@@ -169,7 +169,7 @@ function ce_quick_replace( $content = '', $options = '', $search = '' ) {
  */
 function ce_generate_code( $html, $responsive = '', $max_width = '' ) {
 
-	$code = "\n";
+	$code = '';
 
 	if ( false !== $max_width ) {
 		$code .= '<div style="width: ' . $max_width . 'px; max-width: 100%">';
@@ -188,8 +188,6 @@ function ce_generate_code( $html, $responsive = '', $max_width = '' ) {
 	if ( false !== $max_width ) {
 		$code .= '</div>';
 	}
-
-	$code .= "\n";
 
 	return $code;
 }
