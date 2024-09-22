@@ -3,9 +3,9 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, css, javascript
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.3.9
+Stable tag: 2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,7 +64,9 @@ Check out the screenshots for how the custom fields should look.
 
 For block editor users, I'm assuming you've done the above. For classic editor users, the custom fields should be present by default. In all cases they should appear at the bottom of the editor screen.
 
-If they're not present then you may have a theme or plugin that removes this or may have a problem with your WordPress installation - you will need to try the usual diagnostics to try and resolve this, including requesting help on [the WordPress support forum](https://wordpress.org/support/forum/how-to-and-troubleshooting/ "Fixing WordPress Forum").
+From version 2.4, anyone without the "unfiltered HTML" capability won't be able to see custom fields, for added security. Please see the section "Custom Field Security", below, for more details.
+
+If none of the above applies then you may have a theme or plugin that removes this or may have a problem with your WordPress installation - you will need to try the usual diagnostics to try and resolve this, including requesting help on [the WordPress support forum](https://wordpress.org/support/forum/how-to-and-troubleshooting/ "Fixing WordPress Forum").
 
 Please bear in mind that the custom fields functionality is part of WordPress so it would be greatly appreciated if you don't give me poor reviews in this situation as, I say, this component is not part of this plugin but, by using it, keeps this plugin simple to use and bloat-free :)
 
@@ -144,6 +146,16 @@ If you don't wish the output to be full width you can specify a maximum width by
 
 By default embed code will not appear in excerpts. However, you can switch this ability on via the Code Embed options screen. If you do this then the standard rules of excerpts will still apply, but now once the code embed has applied - for example, excerpts are just text, a specific length, etc.
 
+== Custom Field Security ==
+
+By default, WordPress allows unfiltered HTML to be used by users in post custom fields, even if their role it set up otherwise. This opens up the possibility of leaving a site vulnerable, if any plugins that uses this data doesn't check it appropriately.
+
+"Out of the box", neither the contributor and author roles have unfiltered HTML capabilities but can access custom post fields.
+
+As this plugin requires the use unfiltered HTML, we need to ensure that the only users who use it, should be using it. From version 2.4, this plugin will now turn off custom fields for any users that don't have this capability. This will protect this plugin, but any others too. On the flip side, some users may now loose access to these fields who may still require it.
+
+For this reason, there is an option in the Code Embed settings screen to turn them back on for all users. Please use this ONLY if it really is needed. I would recommend looking at giving those users different, or modified roles, with the appropriate permissions instead of overridding it here. But the choice is yours.
+
 == Reviews & Mentions ==
 
 "Works like a dream. Fantastic!" - Anita.
@@ -195,8 +207,12 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 
 I use semantic versioning, with the first release being 1.0.
 
+= 2.4 =
+* Enhancement: A vulnerability was raised to me but is actually an issue with Core. I've implemented a fix that protects not just this plugin but any others you may have installed. Please read the section in the README titled "Custom Field Security" for more details
+* Enhancement: Tweaked a few bits of code here. No visible changes, just quality improvements
+
 = 2.3.9 =
-* Enhancement: So, let me tell you a story. To make the output look neat, I was adding carriage returns to the embeds. Except, if you want to embed something part way through a line it can look... well... wrong. And all for it looking clean. Remember kids, cleanlyness isn't always next to Godlyness. Needless to say, those rogue carriage returns are gone
+* Enhancement: So, let me tell you a story. To make the output look neat, I was adding carriage returns to the embeds. Except, if you want to embed something part way through a line it can look... well... wrong. And all for it looking clean. Remember kids, cleanliness isn't always next to Godliness. Needless to say, those rogue carriage returns are gone
 * Enhancement: Whilst I was at it, I updated some of the settings code to a brand-spanking new version, which I'm sharing across all my plugins
 * Enhancement: Tidied up some of the assets, including adding a blueprint for WordPress Playground
 
@@ -332,5 +348,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.3.9 =
-* Minor improvement to output to eliminate unwanted carriage returns
+= 2.4 =
+* Important security update

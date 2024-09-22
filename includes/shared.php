@@ -7,6 +7,12 @@
  * @package simple-embed-code
  */
 
+// Exit if accessed directly.
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Add meta to plugin details
  *
@@ -62,33 +68,42 @@ function sec_action_links( $actions, $plugin_file ) {
 add_filter( 'plugin_action_links', 'sec_action_links', 10, 2 );
 
 /**
- * WordPress Fork Check
+ * WordPress Requirements Check
  *
- * Deactivate the plugin if an unsupported fork of WordPress is detected.
+ * Deactivate the plugin if certain requirements are not met.
  *
- * @version 1.0
+ * @version 1.1
  */
-function sec_fork_check() {
+function sec_requirements_check() {
+
+	$reason = '';
+
+	// Grab the plugin details.
+
+	$plugins = get_plugins();
+	$name    = $plugins[ CODE_EMBED_PLUGIN_BASE ]['Name'];
 
 	// Check for a fork.
 
 	if ( function_exists( 'calmpress_version' ) || function_exists( 'classicpress_version' ) ) {
 
-		// Grab the plugin details.
+		/* translators: 1: The plugin name. */
+		$reason .= '<li>' . sprintf( __( 'A fork of WordPress was detected. %1$s has not been tested on this fork and, as a consequence, the author will not provide any support.', 'simple-embed-code' ), $name ) . '</li>';
 
-		$plugins = get_plugins();
-		$name    = $plugins[ CODE_EMBED_PLUGIN_BASE ]['Name'];
+	}
+
+	// If a requirement is not met, output the message and stop the plugin.
+
+	if ( '' !== $reason ) {
 
 		// Deactivate this plugin.
 
-		deactivate_plugins( CODE_EMBED_PLUGIN_BASE );
+		deactivate_plugins( PLUGIN_NAME_PLUGIN_BASE );
 
 		// Set up a message and output it via wp_die.
 
 		/* translators: 1: The plugin name. */
-		$message = '<p><b>' . sprintf( __( '%1$s has been deactivated', 'simple-embed-code' ), $name ) . '</b></p><p>' . __( 'Reason:', 'simple-embed-code' ) . '</p>';
-		/* translators: 1: The plugin name. */
-		$message .= '<ul><li>' . __( 'A fork of WordPress was detected.', 'simple-embed-code' ) . '</li></ul><p>' . sprintf( __( 'The author of %1$s will not provide any support until the above are resolved.', 'simple-embed-code' ), $name ) . '</p>';
+		$message = '<p><b>' . sprintf( __( '%1$s has been deactivated', 'simple-embed-code' ), $name ) . '</b></p><p>' . __( 'Reason:', 'simple-embed-code' ) . '</p><ul>' . $reason . '</ul>';
 
 		$allowed = array(
 			'p'  => array(),
@@ -101,4 +116,4 @@ function sec_fork_check() {
 	}
 }
 
-add_action( 'admin_init', 'sec_fork_check' );
+add_action( 'admin_init', 'sec_requirements_check' );
