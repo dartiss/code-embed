@@ -9,7 +9,7 @@
  * Plugin Name:       Code Embed
  * Plugin URI:        https://wordpress.org/plugins/simple-embed-code/
  * Description:       Code Embed provides a very easy and efficient way to embed code (JavaScript and HTML) in your posts and pages.
- * Version:           2.3.9
+ * Version:           2.4
  * Requires at least: 4.6
  * Requires PHP:      7.4
  * Author:            David Artiss
@@ -26,7 +26,7 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-define( 'CODE_EMBED_VERSION', '2.3.9' );
+define( 'CODE_EMBED_VERSION', '2.4' );
 
 // Define global to hold the plugin base file name.
 
@@ -38,18 +38,14 @@ if ( ! defined( 'CODE_EMBED_PLUGIN_BASE' ) ) {
 
 $functions_dir = plugin_dir_path( __FILE__ ) . 'includes/';
 
-require_once $functions_dir . 'initialise.php';        // Initialisation scripts.
+require_once $functions_dir . 'initialise.php';    // Initialisation scripts.
 
-if ( is_admin() ) {
+require_once $functions_dir . 'add-scripts.php';   // Add scripts to the main theme.
 
-	require_once $functions_dir . 'shared.php';        // Functions shared across all my plugins.
+require_once $functions_dir . 'add-embeds.php';    // Filter to apply code embeds.
 
-	require_once $functions_dir . 'screens.php';       // Add settings and tools screens.
+require_once $functions_dir . 'shared.php';        // Functions shared across all my plugins.
 
-} else {
+require_once $functions_dir . 'screens.php';       // Add settings and tools screens.
 
-	require_once $functions_dir . 'add-scripts.php';   // Add scripts to the main theme.
-
-	require_once $functions_dir . 'add-embeds.php';    // Filter to apply code embeds.
-
-}
+require_once $functions_dir . 'meta-box.php';      // Suppress meta-boxes.
