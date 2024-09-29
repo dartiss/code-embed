@@ -5,7 +5,7 @@ Tags: code, embed, html, css, javascript
 Requires at least: 4.6
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.4
+Stable tag: 2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,15 +146,13 @@ If you don't wish the output to be full width you can specify a maximum width by
 
 By default embed code will not appear in excerpts. However, you can switch this ability on via the Code Embed options screen. If you do this then the standard rules of excerpts will still apply, but now once the code embed has applied - for example, excerpts are just text, a specific length, etc.
 
-== Custom Field Security ==
+== Filtering of code ==
 
 By default, WordPress allows unfiltered HTML to be used by users in post custom fields, even if their role it set up otherwise. This opens up the possibility of leaving a site vulnerable, if any plugins that uses this data doesn't check it appropriately.
 
 "Out of the box", neither the contributor and author roles have unfiltered HTML capabilities but can access custom post fields.
 
-As this plugin requires the use unfiltered HTML, we need to ensure that the only users who use it, should be using it. From version 2.4, this plugin will now turn off custom fields for any users that don't have this capability. This will protect this plugin, but any others too. On the flip side, some users may now loose access to these fields who may still require it.
-
-For this reason, there is an option in the Code Embed settings screen to turn them back on for all users. Please use this ONLY if it really is needed. I would recommend looking at giving those users different, or modified roles, with the appropriate permissions instead of overridding it here. But the choice is yours.
+As this plugin requires the use unfiltered HTML, we need to ensure that the only users who use it, should be using it. From version 2.5, any users without this permission that update a post containing embeds from this plugin will cause the code to be filtered.
 
 == Reviews & Mentions ==
 
@@ -181,6 +179,8 @@ Voila! It's ready to go.
 
 If your code contains the characters `]]>` then you'll find that it doesn't - WordPress modifies this itself.
 
+Also, check to see if the post has been modified by a user without `unfiltered_html` permissions - if it was, they may have caused the code to have been modified (see the "Filtering of code" section above).
+
 Otherwise, it's likely to be your code and not this plugin. The best way to confirm this is to look at the source of the page and compare the code output with what you embedded. Does it match? If it does, then your code is at fault.
 
 = What's the maximum size of the embed code that I can save in a custom field? =
@@ -206,6 +206,9 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 == Changelog ==
 
 I use semantic versioning, with the first release being 1.0.
+
+= 2.5 =
+* Enhancement: This release is a revised version of 2.4, with less impact to other plugins and users. See the README for more details, but this undoes the changes in 2.4 and adds in filtering of code embed fields for users without the correct permissions.
 
 = 2.4 =
 * Enhancement: A vulnerability was raised to me but is actually an issue with Core. I've implemented a fix that protects not just this plugin but any others you may have installed. Please read the section in the README titled "Custom Field Security" for more details
@@ -348,5 +351,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.4 =
+= 2.5 =
 * Important security update
