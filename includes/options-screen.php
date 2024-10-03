@@ -44,12 +44,6 @@ if ( ( ! empty( $_POST ) ) && ( check_admin_referer( 'code-embed-profile', 'code
 		$options['excerpt'] = '';
 	}
 
-	if ( isset( $_POST['code_embed_meta_box'] ) ) {
-		$options['meta_box'] = sanitize_text_field( wp_unslash( $_POST['code_embed_meta_box'] ) ); // Input var okay.
-	} else {
-		$options['meta_box'] = '';
-	}
-
 	update_option( 'artiss_code_embed', $options );
 
 	echo '<div class="updated fade"><p><strong>' . esc_html( __( 'Settings saved.', 'simple-embed-code' ) ) . "</strong></p></div>\n";
@@ -58,12 +52,6 @@ if ( ( ! empty( $_POST ) ) && ( check_admin_referer( 'code-embed-profile', 'code
 // Fetch options into an array.
 
 $options = get_option( 'artiss_code_embed' );
-
-// Display a message box if the custom meta box removal has been overridden.
-
-if ( '1' === $options['meta_box'] ) {
-	echo '<div class="error fade"><p><strong>' . esc_html( __( 'Warning: You have custom post fields switched on for users who do not have the unfiltered HTML capability. This means that insecure code can be added. Please see the plugin README for more details.', 'simple-embed-code' ) ) . "</strong></p></div>\n";
-}
 ?>
 
 <form method="post" action="<?php echo esc_url( get_bloginfo( 'wpurl' ) ) . '/wp-admin/options-general.php?page=ce-options'; ?>">
@@ -75,13 +63,6 @@ if ( '1' === $options['meta_box'] ) {
 <td><input type="checkbox" name="code_embed_excerpt" value="1"
 <?php checked( '1', $options['excerpt'] ); ?>
 /><?php esc_html_e( 'Allow embedded code to be shown in excerpts', 'simple-embed-code' ); ?></td>
-</tr>
-
-<tr>
-<th scope="row"><label for="code_embed_meta_box"><?php echo esc_html( ucwords( __( 'Allow custom fields for all users', 'simple-embed-code' ) ) ); ?></label></th>
-<td><input type="checkbox" name="code_embed_meta_box" value="1"
-<?php checked( '1', $options['meta_box'] ); ?>
-/><?php esc_html_e( 'Allows custom meta boxes to be shown for all users, including those without unfiltered HTML permissions.', 'simple-embed-code' ); ?><p class="description"><?php esc_html_e( 'For security purposes, it is recommended that you do not select this option unless you have to. Please the plugin README for more details.' ); ?></p></td>
 </tr>
 
 </table>
