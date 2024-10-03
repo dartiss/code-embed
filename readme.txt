@@ -209,6 +209,7 @@ I use semantic versioning, with the first release being 1.0.
 
 = 2.5 =
 * Enhancement: This release is a revised version of 2.4, with less impact to other plugins and users. See the README for more details, but this undoes the changes in 2.4 and adds in filtering of code embed fields for users without the correct permissions.
+* Bug: Fixed a long time bug that could cause an infinite loop to occur in rare situations
 
 = 2.4 =
 * Enhancement: A vulnerability was raised to me but is actually an issue with Core. I've implemented a fix that protects not just this plugin but any others you may have installed. Please read the section in the README titled "Custom Field Security" for more details

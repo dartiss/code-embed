@@ -141,7 +141,7 @@ function ce_quick_replace( $content = '', $options = '', $search = '' ) {
 		$end_pos = strpos( $content, $options['closing_ident'], $start_pos + 1 );
 
 		if ( false !== $end_pos ) {
-			$url  = substr( $content, $start_pos + $open_len, $end_pos - $start_pos - $close_len );
+			$url  = substr( $content, $start_pos + strlen( $options['opening_ident'] ), $end_pos - ( $start_pos + strlen( $options['opening_ident'] ) ) );
 			$file = ce_get_file( $url );
 			if ( false !== $file ) {
 				$content = str_replace( $options['opening_ident'] . $url . $options['closing_ident'], $file, $content );
