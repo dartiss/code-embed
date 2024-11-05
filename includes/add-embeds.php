@@ -261,7 +261,7 @@ function ce_get_file( $filein ) {
 
 	} else {
 
-		$response = wp_remote_get( $filein, array( 'timeout' => 3 ) ); // @codingStandardsIgnoreLine -- for non-VIP environments
+		$response = wp_safe_remote_get( $filein, array( 'timeout' => 3 ) ); // @codingStandardsIgnoreLine -- for non-VIP environments
 
 	}
 
