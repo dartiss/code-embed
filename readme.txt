@@ -359,5 +359,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.5 =
+= 2.5.1 =
 * Important security update
