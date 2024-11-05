@@ -3,9 +3,9 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, css, javascript
 Requires at least: 4.6
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.5
+Stable tag: 2.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -195,6 +195,10 @@ Yes you can. If you wish to share one set of embed code across multiple posts, t
 
 It is, in that it doesn't save any data that could be odds with GDPR compliance (i.e. it's compliant by design). However, if you use this to embed third-party scripts, then those scripts may not be and you will need to speak to the providers for further details.
 
+= Do you support this plugin on forks of WordPress? =
+
+No. It was developed for WordPress and so forks remain unsupported. I have no intention of developing and testing this on any other version.
+
 == Screenshots ==
 
 1. The options screen
@@ -206,6 +210,9 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 == Changelog ==
 
 I use semantic versioning, with the first release being 1.0.
+
+= 2.5.1 =
+* Enhancement: Changed `wp_remote_get` to `wp_safe_remote_get` to improve security
 
 = 2.5 =
 * Enhancement: This release is a revised version of 2.4, with less impact to other plugins and users. See the README for more details, but this undoes the changes in 2.4 and adds in filtering of code embed fields for users without the correct permissions.
