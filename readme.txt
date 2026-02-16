@@ -3,9 +3,9 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, css, javascript
 Requires at least: 4.6
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.5.1
+Stable tag: 2.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -199,6 +199,10 @@ It is, in that it doesn't save any data that could be odds with GDPR compliance 
 
 No. It was developed for WordPress and so forks remain unsupported. I have no intention of developing and testing this on any other version.
 
+= Where do I report security bugs found in this plugin =
+
+Please report security bugs found in the source code of the Code Embed plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/9e5fb3d8-2b30-4f96-919c-ecbc8308eda4). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 == Screenshots ==
 
 1. The options screen
@@ -211,15 +215,18 @@ No. It was developed for WordPress and so forks remain unsupported. I have no in
 
 I use semantic versioning, with the first release being 1.0.
 
+= 2.5.2 =
+* Security: Fixed CVE-2026-2512, as reported by [Muhammad Yudha](https://www.wordfence.com/threat-intel/vulnerabilities/researchers/yudha) via [WordFence](https://www.wordfence.com/r/26c227ba3ee33458/)
+
 = 2.5.1 =
-* Enhancement: Changed `wp_remote_get` to `wp_safe_remote_get` to improve security
+* Security: Changed `wp_remote_get` to `wp_safe_remote_get` to improve security
 
 = 2.5 =
 * Enhancement: This release is a revised version of 2.4, with less impact to other plugins and users. See the README for more details, but this undoes the changes in 2.4 and adds in filtering of code embed fields for users without the correct permissions.
 * Bug: Fixed a long time bug that could cause an infinite loop to occur in rare situations
 
 = 2.4 =
-* Enhancement: A vulnerability was raised to me but is actually an issue with Core. I've implemented a fix that protects not just this plugin but any others you may have installed. Please read the section in the README titled "Custom Field Security" for more details
+* Security: A vulnerability was raised to me but is actually an issue with Core. I've implemented a fix that protects not just this plugin but any others you may have installed. Please read the section in the README titled "Custom Field Security" for more details
 * Enhancement: Tweaked a few bits of code here. No visible changes, just quality improvements
 
 = 2.3.9 =
@@ -359,5 +366,5 @@ versions of this plugin
 
 == Upgrade Notice ==
 
-= 2.5.1 =
+= 2.5.2 =
 * Important security update
