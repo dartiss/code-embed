@@ -1,8 +1,8 @@
 <?php
 /**
- * Meta boxes
+ * Security
  *
- * Functions related to meta-box management.
+ * Functions related to sanitizing Code Embed meta values.
  *
  * @package simple-embed-code
  */
@@ -14,42 +14,58 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Remove Custom Fields
+ * Sanitize Code Embed meta on every write
  *
- * Remove the custom field meta boxes if the user doesn't have the unfiltered HTML permissions.
+ * Filter that fires on every call to update_metadata / add_metadata — including the
+ * wp_ajax_add_meta AJAX handler and the REST API, not just save_post.
  *
- * @param    string  $post_id   Post ID.
- * @param    string  $post      Post object.
- * @param    boolean $update    Whether this is an existing post being updated.
+ * @param mixed  $check      Null to allow the operation, non-null to short-circuit.
+ * @param int    $object_id  Post ID.
+ * @param string $meta_key   Meta key being written.
+ * @param mixed  $meta_value Meta value being written.
+ * @return mixed             Null (to proceed with the write).
  */
-function sec_check_post_fields( $post_id, $post, $update ) {
+function sec_sanitize_meta_on_write( $check, $object_id, $meta_key, $meta_value ) {
+
+	// Allow admins / editors with unfiltered_html to write without restriction.
+	if ( current_user_can( 'unfiltered_html' ) ) {
+		return $check;
+	}
 
 	$options = get_option( 'artiss_code_embed' );
 
-	// Check if it's an autosave or if the current user has the 'unfiltered_html' capability.
-	if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( current_user_can( 'unfiltered_html' ) ) ) {
-		return;
+	if ( ! is_array( $options ) || empty( $options['keyword_ident'] ) ) {
+		return $check;
 	}
 
-	// Fetch all post meta (custom fields) associated with the post.
-	$custom_fields = get_post_meta( $post_id );
+	$prefix = $options['keyword_ident'];
 
-	// If there are custom fields, read through them.
-	if ( ! empty( $custom_fields ) ) {
-
-		foreach ( $custom_fields as $key => $value ) {
-
-			// Check to see if any begining with this plugin's prefix.
-			if ( substr( $key, 0, strlen( $options['keyword_ident'] ) ) === $options['keyword_ident'] ) {
-
-				// Filter the meta value.
-				$new_value = wp_kses_post( $value[0] );
-
-				// Now write out the new value.
-				update_post_meta( $post_id, $key, $new_value );
-			}
-		}
+	// Only act on meta keys that belong to this plugin.
+	if ( substr( $meta_key, 0, strlen( $prefix ) ) !== $prefix ) {
+		return $check;
 	}
+
+	// Strip dangerous markup while preserving safe HTML.
+	$clean = wp_kses_post( $meta_value );
+
+	if ( $clean === $meta_value ) {
+		// Value is already clean — let the normal write proceed.
+		return $check;
+	}
+
+	// The value was dirty. Remove this filter temporarily to avoid infinite recursion, write the sanitized value ourselves, then
+	// re-add the filter and short-circuit the original write.
+	remove_filter( 'update_post_metadata', 'sec_sanitize_meta_on_write', 10 );
+	remove_filter( 'add_post_metadata', 'sec_sanitize_meta_on_write', 10 );
+
+	update_post_meta( $object_id, $meta_key, $clean );
+
+	add_filter( 'update_post_metadata', 'sec_sanitize_meta_on_write', 10, 4 );
+	add_filter( 'add_post_metadata', 'sec_sanitize_meta_on_write', 10, 4 );
+
+	// Return a non-null value to short-circuit the original (unsanitized) write.
+	return true;
 }
 
-add_action( 'save_post', 'sec_check_post_fields', 10, 3 );
+add_filter( 'update_post_metadata', 'sec_sanitize_meta_on_write', 10, 4 );
+add_filter( 'add_post_metadata', 'sec_sanitize_meta_on_write', 10, 4 );
