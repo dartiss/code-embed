@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param int    $object_id  Post ID.
  * @param string $meta_key   Meta key being written.
  * @param mixed  $meta_value Meta value being written.
- * @return mixed             Null (to proceed with the write).
+ * @return mixed             Null to allow the write to proceed, or true to short-circuit it.
  */
 function sec_sanitize_meta_on_write( $check, $object_id, $meta_key, $meta_value ) {
 

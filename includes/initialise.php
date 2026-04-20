@@ -1,35 +1,37 @@
 <?php
 /**
- * Initialisation script
+ * Initialization script
  *
- * Run everytime the plugin is initialised
+ * Run every time the plugin is initialized.
  *
  * @package  simple-embed-code
  */
 
+// Exit if accessed directly.
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
- * Initialisation
+ * Initialization
  *
  * All initial processes.
  */
 function ce_initialisation() {
 
-	// Add exerpt filter, if required.
+	// Add excerpt filter, if required.
 
 	$options = get_option( 'artiss_code_embed' );
-	if ( isset( $options['excerpt'] ) && 1 === $options['excerpt'] ) {
+	if ( isset( $options['excerpt'] ) && '1' === $options['excerpt'] ) {
 		add_filter( 'the_excerpt', 'ce_filter', 1 );
 	}
 
-	// Check if plugin has upgraded and, if so, perform further actions.
+	// Check if the plugin has upgraded and, if so, perform further actions.
 
 	$version = get_option( 'code_embed_version' );
 
-	if ( CODE_EMBED_VERSION !== $version ) {
-
-		// Set up default option values (if not already set).
-
-		$options = get_option( 'artiss_code_embed' );
+	if ( version_compare( CODE_EMBED_VERSION, $version, '!=' ) ) {
 
 		// If options don't exist, create an empty array.
 
@@ -50,11 +52,15 @@ function ce_initialisation() {
 
 		$new_options = array_merge( $default_array, $options );
 
-		// Update the options, if changed, and return the result.
+		// Update the options, if changed.
 
 		if ( $options !== $new_options ) {
 			update_option( 'artiss_code_embed', $new_options );
 		}
+
+		// Finally, update the saved version.
+
+		update_option( 'code_embed_version', CODE_EMBED_VERSION );
 	}
 }
 
