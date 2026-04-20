@@ -16,23 +16,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Add meta to plugin details
  *
- * Add options to plugin meta line
+ * Add options to plugin meta line.
  *
- * @version  1.1
- * @param    string $links  Current links.
+ * Internal code version: 1.3
+ *
+ * @param    array  $links  Current links.
  * @param    string $file   File in use.
- * @return   string         Links, now with settings added.
+ * @return   array          Links, now with settings added.
  */
 function sec_plugin_meta( $links, $file ) {
 
-	if ( false !== strpos( $file, 'simple-code-embed.php' ) ) {
+	if ( CODE_EMBED_PLUGIN_BASE === $file ) {
 
 		$links = array_merge(
 			$links,
-			array( '<a href="https://github.com/dartiss/code-embed">' . __( 'Github', 'simple-embed-code' ) . '</a>' ),
-			array( '<a href="https://wordpress.org/support/plugin/simple-embed-code">' . __( 'Support', 'simple-embed-code' ) . '</a>' ),
-			array( '<a href="https://artiss.blog/donate">' . __( 'Donate', 'simple-embed-code' ) . '</a>' ),
-			array( '<a href="https://wordpress.org/support/plugin/simple-embed-code/reviews/?filter=5" title="' . __( 'Rate the plugin on WordPress.org', 'simple-embed-code' ) . '" style="color: #ffb900">' . str_repeat( '<span class="dashicons dashicons-star-filled" style="font-size: 16px; width:16px; height: 16px"></span>', 5 ) . '</a>' ),
+			array( '<a href="' . esc_url( 'https://github.com/dartiss/code-embed' ) . '">' . __( 'Github', 'simple-embed-code' ) . '</a>' ),
+			array( '<a href="' . esc_url( 'https://wordpress.org/support/plugin/simple-embed-code' ) . '">' . __( 'Support', 'simple-embed-code' ) . '</a>' ),
+			array( '<a href="' . esc_url( 'https://wordpress.org/support/plugin/simple-embed-code/reviews/' ) . '">' . __( 'Write a Review', 'simple-embed-code' ) . '</a>' ),
+			array( '<a href="' . esc_url( 'https://artiss.blog/donate' ) . '">' . __( 'Donate', 'simple-embed-code' ) . '</a>' ),
 		);
 	}
 
@@ -42,23 +43,24 @@ function sec_plugin_meta( $links, $file ) {
 add_filter( 'plugin_row_meta', 'sec_plugin_meta', 10, 2 );
 
 /**
- * Modify actions links.
+ * Modify action links.
  *
- * Add or remove links for the actions listed against this plugin
+ * Add links for the actions listed against this plugin.
  *
- * @version  1.1
- * @param    string $actions      Current actions.
+ * Internal code version: 1.1
+ *
+ * @param    array  $actions      Current actions.
  * @param    string $plugin_file  The plugin.
- * @return   string               Actions, now with deactivation removed!
+ * @return   array                List of plugin actions.
  */
 function sec_action_links( $actions, $plugin_file ) {
 
 	// Make sure we only perform actions for this specific plugin!
-	if ( strpos( $plugin_file, 'simple-code-embed.php' ) !== false ) {
+	if ( CODE_EMBED_PLUGIN_BASE === $plugin_file ) {
 
 		// Add link to the settings page.
 		if ( current_user_can( 'manage_options' ) ) {
-			array_unshift( $actions, '<a href="admin.php?page=ce-options">' . __( 'Settings', 'simple-embed-code' ) . '</a>' );
+			array_unshift( $actions, '<a href="' . admin_url( 'options-general.php?page=ce-options' ) . '">' . __( 'Settings', 'simple-embed-code' ) . '</a>' );
 		}
 	}
 
@@ -72,7 +74,7 @@ add_filter( 'plugin_action_links', 'sec_action_links', 10, 2 );
  *
  * Deactivate the plugin if certain requirements are not met.
  *
- * @version 1.1
+ * Internal code version: 1.1
  */
 function sec_requirements_check() {
 
@@ -98,12 +100,12 @@ function sec_requirements_check() {
 
 		// Deactivate this plugin.
 
-		deactivate_plugins( PLUGIN_NAME_PLUGIN_BASE );
+		deactivate_plugins( CODE_EMBED_PLUGIN_BASE );
 
 		// Set up a message and output it via wp_die.
 
 		/* translators: 1: The plugin name. */
-		$message = '<p><b>' . sprintf( __( '%1$s has been deactivated', 'simple-embed-code' ), $name ) . '</b></p><p>' . __( 'Reason:', 'simple-embed-code' ) . '</p><ul>' . $reason . '</ul>';
+		$message = '<p><strong>' . sprintf( __( '%1$s has been deactivated', 'simple-embed-code' ), $name ) . '</strong></p><p>' . __( 'Reason:', 'simple-embed-code' ) . '</p><ul>' . $reason . '</ul>';
 
 		$allowed = array(
 			'p'  => array(),
