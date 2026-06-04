@@ -122,17 +122,40 @@ function ce_filter( $content ) {
 
 	// Loop around the post content looking for HTTP addresses.
 
-	$content = ce_quick_replace( $content, $options, 'http://' );
+	if ( '1' === get_post_meta( $post->ID, '_ce_allow_url_embeds', true ) ) {
+		$content = ce_quick_replace( $content, $options, 'http://' );
 
-	// Loop around the post content looking for HTTPS addresses.
+		// Loop around the post content looking for HTTPS addresses.
 
-	$content = ce_quick_replace( $content, $options, 'https://' );
+		$content = ce_quick_replace( $content, $options, 'https://' );
+	}
 
 	return $content;
 }
 
 add_filter( 'the_content', 'ce_filter' );
 add_filter( 'widget_text_content', 'ce_filter' );
+add_action( 'save_post', 'ce_save_url_embed_permission' );
+
+/**
+ * Save URL Embed Permission
+ *
+ * On post save, records whether the post author has the unfiltered_html
+ * capability, so that URL embed tokens are only expanded at render time
+ * for content authored by trusted users.
+ *
+ * @param    string $post_id    The post ID.
+ */
+function ce_save_url_embed_permission( $post_id ) {
+
+	if ( wp_is_post_revision( $post_id ) ) {
+		return;
+	}
+
+	$post    = get_post( $post_id );
+	$allowed = user_can( $post->post_author, 'unfiltered_html' ) ? '1' : '0';
+	update_post_meta( $post_id, '_ce_allow_url_embeds', $allowed );
+}
 
 /**
  * Quick Replace
@@ -158,7 +181,7 @@ function ce_quick_replace( $content = '', $options = '', $search = '' ) {
 			if ( false === $file ) {
 				$file = ce_report_error( __( 'File could not be fetched', 'simple-embed-code' ), 'Code Embed', false );
 			}
-			$content   = str_replace( $options['opening_ident'] . $url . $options['closing_ident'], $file, $content );
+			$content   = str_replace( $options['opening_ident'] . $url . $options['closing_ident'], wp_kses_post( $file ), $content );
 			$start_pos = strpos( $content, $options['opening_ident'] . $search, 0 );
 		} else {
 			$start_pos = strpos( $content, $options['opening_ident'] . $search, $start_pos + 1 );
