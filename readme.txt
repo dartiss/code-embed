@@ -3,9 +3,9 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, css, javascript
 Requires at least: 4.9
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.6
+Stable tag: 2.6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -214,6 +214,9 @@ Please report security bugs found in the source code of the Code Embed plugin th
 
 I use semantic versioning, with the first release being 1.0.
 
+= 2.6.1 = 
+* Security: Fixed CVE-2026-48093, as reported by [manop55555](https://github.com/manop55555), as the code was vulnerable to stored Cross-Site Scripting (XSS) through the external URL embed feature in post content.
+
 = 2.6 =
 * Enhancement: A massive review of the code means that it now conforms to WCAG 2.1 AA standards, and is more secure and performant than ever before.
 * This is not the end to improvements, however, and expect 2.7 to drop soon with even more quality-of-life enhancements, as well as all the bugs squashed that have been reported to me.
@@ -368,5 +371,5 @@ I use semantic versioning, with the first release being 1.0.
 
 == Upgrade Notice ==
 
-= 2.6 =
-* Massive code improvement, bringing accessibility, security and performance enhancements.
+= 2.6.1 =
+* Fixed a reported security vulnerability.
