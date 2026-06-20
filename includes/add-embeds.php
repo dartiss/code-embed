@@ -98,7 +98,12 @@ function ce_filter( $content ) {
 
 			$post_meta = get_post_meta( $post->ID, $options['keyword_ident'] . $suffix, false );
 			if ( isset( $post_meta[0] ) ) {
-				$html = $post_meta[0];
+				$post_author = get_post_field( 'post_author', $post->ID );
+				if ( user_can( $post_author, 'unfiltered_html' ) ) {
+					$html = $post_meta[0];
+				} else {
+					$html = wp_kses_post( $post_meta[0] );
+				}
 			} else {
 				// No meta found, so look for it elsewhere.
 				$html = ce_get_embed_code( $options['keyword_ident'], $suffix );
