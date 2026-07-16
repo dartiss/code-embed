@@ -5,7 +5,7 @@ Tags: code, embed, html, css, javascript
 Requires at least: 4.9
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.6.2
+Stable tag: 2.6.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -214,6 +214,9 @@ Please report security bugs found in the source code of the Code Embed plugin th
 
 I use semantic versioning, with the first release being 1.0.
 
+= 2.6.3 =
+* Security: Fixed [a stored XSS vulnerability](https://github.com/dartiss/code-embed/security/advisories/GHSA-qrwc-v5hh-f395) that was reported by [pphreak-1001](https://github.com/pphreak-1001)
+
 = 2.6.2 =
 * Security: Fixed a vulnerability, reported by an automated security review from WordPress.org
 
@@ -374,5 +377,5 @@ I use semantic versioning, with the first release being 1.0.
 
 == Upgrade Notice ==
 
-= 2.6.2 =
+= 2.6.3 =
 * Fixed a reported security vulnerability.

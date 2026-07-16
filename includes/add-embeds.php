@@ -261,8 +261,12 @@ function ce_get_embed_code( $ident, $suffix ) {
 		if ( 1 === $records ) {
 
 			// Only one unique code result returned, so assume this is the global embed.
-
-			$html = $meta[0]->meta_value;
+			$post_author = get_post_field( 'post_author', $meta[0]->ID );
+			if ( user_can( $post_author, 'unfiltered_html' ) ) {
+				$html = $meta[0]->meta_value;
+			} else {
+				$html = wp_kses_post( $meta[0]->meta_value );
+			}
 
 		} else {
 
