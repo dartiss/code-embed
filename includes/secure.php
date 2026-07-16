@@ -41,7 +41,7 @@ function sec_sanitize_meta_on_write( $check, $object_id, $meta_key, $meta_value 
 	$prefix = $options['keyword_ident'];
 
 	// Only act on meta keys that belong to this plugin.
-	if ( substr( $meta_key, 0, strlen( $prefix ) ) !== $prefix ) {
+	if ( 0 !== stripos( $meta_key, $prefix ) ) {
 		return $check;
 	}
 
