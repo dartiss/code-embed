@@ -24,7 +24,7 @@ echo '<p>' . esc_html__( 'Enter the suffix to search for below and press the \'S
 
 // Get the suffix from the submitted field.
 
-if ( ! empty( $_POST['ce_suffix'] || '0' === $_POST['ce_suffix'] ) && check_admin_referer( 'code-embed-search', 'code_embed_search_nonce' ) ) {
+if ( isset( $_POST['ce_suffix'] ) && check_admin_referer( 'code-embed-search', 'code_embed_search_nonce' ) ) {
 	$suffix = sanitize_text_field( wp_unslash( $_POST['ce_suffix'] ) );
 } else {
 	$suffix = '';
@@ -53,34 +53,38 @@ $options = get_option( 'artiss_code_embed' );
 if ( '' !== $suffix ) {
 
 	global $wpdb;
-	$meta    = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value, post_title, ID FROM $wpdb->postmeta, $wpdb->posts WHERE meta_key = %s AND post_id = ID AND post_status NOT IN ('trash', 'auto-draft', 'inherit') AND post_type IN ('post', 'page') ORDER BY meta_value", $options['keyword_ident'] . $suffix ) ); // @codingStandardsIgnoreLine -- being used for a simple, ad-hoc search feature in admin. Unlikely to be used much and caching on this is overkill
-	$records = $wpdb->num_rows;
+	$meta = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value, post_title, ID FROM $wpdb->postmeta, $wpdb->posts WHERE BINARY meta_key = %s AND post_id = ID AND post_status NOT IN ('trash', 'auto-draft', 'inherit') AND post_type IN ('post', 'page') ORDER BY meta_value", $options['keyword_ident'] . $suffix ) ); // @codingStandardsIgnoreLine -- being used for a simple, ad-hoc search feature in admin. Unlikely to be used much and caching on this is overkill
 
-	if ( 0 < $records ) {
+	$shown = 0;
 
-		echo '<table class="widefat striped">';
-		$prev_html = '';
+	foreach ( $meta as $meta_data ) {
+		$post_ident = $meta_data->ID;
 
-		foreach ( $meta as $meta_data ) {
-			$html       = $meta_data->meta_value;
-			$post_title = $meta_data->post_title;
-			$post_ident = $meta_data->ID;
-
-			echo '<tr style="border-bottom-style: dotted; border-top-style: dotted;">' . "\n";
-			echo '<td><a href="' . esc_url( get_edit_post_link( esc_attr( $post_ident ) ) ) . '" >' . esc_html( $post_title ) . "</a></td>\n";
-
-			echo '<td><textarea aria-label="' . esc_attr__( 'Embed code', 'simple-embed-code' ) . '" readonly="readonly" rows="3" cols="80">' . esc_html( $html ) . "</textarea></td>\n";
-			echo "</tr>\n";
-
-			$prev_html = $html;
+		// Only reveal an embed for posts the current user can edit, so this tool cannot
+		// disclose the title or embed content of posts the user has no access to.
+		if ( ! current_user_can( 'edit_post', $post_ident ) ) {
+			continue;
 		}
 
+		$html       = $meta_data->meta_value;
+		$post_title = $meta_data->post_title;
+
+		if ( 0 === $shown ) {
+			echo '<table class="widefat striped">';
+		}
+		++$shown;
+
+		echo '<tr style="border-bottom-style: dotted; border-top-style: dotted;">' . "\n";
+		echo '<td><a href="' . esc_url( get_edit_post_link( esc_attr( $post_ident ) ) ) . '" >' . esc_html( $post_title ) . "</a></td>\n";
+
+		echo '<td><textarea aria-label="' . esc_attr__( 'Embed code', 'simple-embed-code' ) . '" readonly="readonly" rows="3" cols="80">' . esc_html( $html ) . "</textarea></td>\n";
+		echo "</tr>\n";
+	}
+
+	if ( 0 < $shown ) {
 		echo "</table>\n";
-
 	} else {
-
 		ce_report_error( esc_html__( 'No posts were found containing that embed code.', 'simple-embed-code' ), 'Code Embed', true );
-
 	}
 }
 ?>
