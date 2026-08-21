@@ -5,13 +5,15 @@ Tags: code, embed, html, css, javascript
 Requires at least: 4.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.6.3
+Stable tag: 2.6.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Code Embed provides a very easy and efficient way to embed code (JavaScript, CSS and HTML) in your posts and pages.
 
 == Description ==
+
+**IMPORTANT: If updating from an earlier version of the plugin, please check the section named "Plugin Behaviour Changes", below, for anything which could impact your existing set-up**
 
 Code Embed allows you to embed code (JavaScript, CSS and HTML - it can't be used for server-side code, such as PHP) in a post, without the content being changed by the editor. This is incredibly useful for embedding third-party scripts, etc. The plugin is used by many large sites, including Mozilla. 
 
@@ -153,6 +155,16 @@ By default, WordPress allows unfiltered HTML to be used by users in post custom 
 
 As this plugin requires the use of unfiltered HTML, we need to ensure that only authorized users can use it. From version 2.5, any users without this permission that update a post containing embeds from this plugin will cause the code to be filtered.
 
+== Plugin Behaviour Changes ==
+
+Security hardening has meant that some changes to behaviour have had to change after specific releases. Here I'll document any known changes...
+
+* Version 2.6.4 - A global `<script>` embed will now have scripts stripped on any post authored by a user without `unfiltered_html`. Safe-HTML global embeds (iframes, video, etc.) are unaffected. Previously scripts rendered everywhere.
+
+* Version 2.6.4 - Global embeds stored on a draft/private post stop resolving on the front end. If you (or your users) deliberately keep a "global embed library" as an unpublished post, that pattern breaks - they'd need to publish it
+
+* Version 2.6.3 - Global embeds are now case-sensitive (which it always should have been). If any existing live content relies on accidental case-insensitive matching (e.g. {{CODE1}} pulling a code1 field), it will stop resolving
+
 == Reviews & Mentions ==
 
 "Works like a dream. Fantastic!" - Anita.
@@ -214,8 +226,12 @@ Please report security bugs found in the source code of the Code Embed plugin th
 
 I use semantic versioning, with the first release being 1.0.
 
+= 2.6.4 =
+* Security: As you'll have seen from recent releases, there's been a long stream of reported vulnerabilities. We can probably blame/thank AI for this. So, as a pre-emptive strike against more occurrences, I've done a thorough security scan and update. It's not finished because, as I was working through things, another vulnerability was reported, which is included in this change...
+* Security: Fixed a reported security vulnerability. Fixing this has meant 2 changes in how the plugin works, which are noted at the top of this README
+
 = 2.6.3 =
-* Security: Fixed [a stored XSS vulnerability](https://github.com/dartiss/code-embed/security/advisories/GHSA-qrwc-v5hh-f395) that was reported by [pphreak-1001](https://github.com/pphreak-1001). **Please note**, that the changes makes global embeds case-sensitive (which it always should have been). If any existing live content relies on accidental case-insensitive matching (e.g. {{CODE1}} pulling a code1 field), it will stop resolving
+* Security: Fixed [a stored XSS vulnerability](https://github.com/dartiss/code-embed/security/advisories/GHSA-qrwc-v5hh-f395) that was reported by [pphreak-1001](https://github.com/pphreak-1001)
 
 = 2.6.2 =
 * Security: Fixed a vulnerability, reported by an automated security review from WordPress.org
@@ -377,5 +393,5 @@ I use semantic versioning, with the first release being 1.0.
 
 == Upgrade Notice ==
 
-= 2.6.3 =
-* Fixed a security vulnerability
+= 2.6.4 =
+* Security hardening and a vulnerability fix
