@@ -6,13 +6,13 @@
  * @author            David Artiss
  * @license           GPL-2.0-or-later
  * @since             1.0
- * @version           2.6.4
+ * @version           2.6.5
  *
  * Plugin Name:       Code Embed
  * Plugin URI:        https://wordpress.org/plugins/simple-embed-code/
  * Description:       Code Embed provides a very easy and efficient way to embed code (JavaScript, CSS and HTML) in your posts and pages.
- * Version:           2.6.4
- * Requires at least: 4.9
+ * Version:           2.6.5
+ * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            David Artiss
  * Author URI:        https://artiss.blog
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Define globals.
 
 if ( ! defined( 'CODE_EMBED_VERSION' ) ) {
-	define( 'CODE_EMBED_VERSION', '2.6.4' );
+	define( 'CODE_EMBED_VERSION', '2.6.5' );
 }
 
 if ( ! defined( 'CODE_EMBED_PLUGIN_BASE' ) ) {

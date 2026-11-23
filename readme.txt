@@ -2,10 +2,10 @@
 Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: code, embed, html, css, javascript
-Requires at least: 4.9
+Requires at least: 6.2
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.6.4
+Stable tag: 2.6.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Code Embed provides a very easy and efficient way to embed code (JavaScript, CSS
 
 **IMPORTANT: If updating from an earlier version of the plugin, please check the section named "Plugin Behaviour Changes", below, for anything which could impact your existing set-up**
 
-Code Embed allows you to embed code (JavaScript, CSS and HTML - it can't be used for server-side code, such as PHP) in a post, without the content being changed by the editor. This is incredibly useful for embedding third-party scripts, etc. The plugin is used by many large sites, including Mozilla. 
+Code Embed allows you to embed code (JavaScript, CSS and HTML - it can't be used for server-side code, such as PHP) in a post, without the content being changed by the editor. This is incredibly useful for embedding third-party scripts, etc. The plugin is used by many large sites, including Mozilla.
 
 Key features include...
 
@@ -159,6 +159,8 @@ As this plugin requires the use of unfiltered HTML, we need to ensure that only 
 
 Security hardening has meant that some changes to behaviour have had to change after specific releases. Here I'll document any known changes...
 
+* Version 2.6.5 - Embed code that itself contains an embed tag is no longer expanded (nested embeds are no longer allowed).
+
 * Version 2.6.4 - A global `<script>` embed will now have scripts stripped on any post authored by a user without `unfiltered_html`. Safe-HTML global embeds (iframes, video, etc.) are unaffected. Previously scripts rendered everywhere.
 
 * Version 2.6.4 - Global embeds stored on a draft/private post stop resolving on the front end. If you (or your users) deliberately keep a "global embed library" as an unpublished post, that pattern breaks - they'd need to publish it
@@ -225,6 +227,9 @@ Please report security bugs found in the source code of the Code Embed plugin th
 == Changelog ==
 
 I use semantic versioning, with the first release being 1.0.
+
+= 2.6.5 =
+* Security: Fixed a Cross Site Scripting (XSS) vulnerability that was reported by AndrewN, via Patchstack
 
 = 2.6.4 =
 * Security: As you'll have seen from recent releases, there's been a long stream of reported vulnerabilities. We can probably blame/thank AI for this. So, as a pre-emptive strike against more occurrences, I've done a thorough security scan and update. It's not finished because, as I was working through things, another vulnerability was reported, which is included in this change...
@@ -393,5 +398,5 @@ I use semantic versioning, with the first release being 1.0.
 
 == Upgrade Notice ==
 
-= 2.6.4 =
-* Security hardening and a vulnerability fix
+= 2.6.5 =
+* Vulnerability fix
