@@ -43,9 +43,6 @@ function ce_filter( $content ) {
 		return $content;
 	}
 
-	$found_pos  = strpos( $content, $options['opening_ident'] . $options['keyword_ident'], 0 );
-	$prefix_len = strlen( $options['opening_ident'] . $options['keyword_ident'] );
-
 	// Whether the author of the post being rendered may output raw, unfiltered HTML.
 
 	// This one decision gates raw output for both local and global embeds, so an untrusted author's page
@@ -54,23 +51,23 @@ function ce_filter( $content ) {
 	$post_author       = get_post_field( 'post_author', $post->ID );
 	$author_allows_raw = user_can( $post_author, 'unfiltered_html' );
 
-	// Loop around the post content looking for all requests for code embeds.
+	if ( ! $author_allows_raw ) {
+		$content = ce_strip_tokens_from_tags( $content, $options['opening_ident'] . $options['keyword_ident'], $options['closing_ident'] );
+	}
 
-	while ( false !== $found_pos ) {
-		// Get the position of the closing identifier - ignore if one is not found!
+	// Replace every embed token in a single pass. preg_replace_callback() never re-scans the text it has
+	// inserted, so a value can't bring in a further token (which could otherwise land inside one of the
+	// value's own attributes, or reference itself and loop forever). For untrusted authors, a name may only be
+	// letters, numbers, underscores and hyphens, so a "token" can never run across HTML.
 
-		$end_pos = strpos( $content, $options['closing_ident'], $found_pos + $prefix_len );
-		if ( false !== $end_pos ) {
+	$name    = $author_allows_raw ? '.*?' : '[A-Za-z0-9_-]*';
+	$pattern = '/' . preg_quote( $options['opening_ident'] . $options['keyword_ident'], '/' ) . '(' . $name . ')' . preg_quote( $options['closing_ident'], '/' ) . '/s';
 
-			// Extract the suffix.
+	$content = preg_replace_callback(
+		$pattern,
+		function ( $matches ) use ( $post, $options, $author_allows_raw ) {
 
-			$suffix_len = $end_pos - ( $found_pos + $prefix_len );
-			if ( 0 === $suffix_len ) {
-				$suffix = '';
-			} else {
-				$suffix = substr( $content, $found_pos + $prefix_len, $suffix_len );
-			}
-			$full_suffix = $suffix;
+			$suffix = $matches[1];
 
 			// Check for responsive part of suffix.
 
@@ -91,9 +88,7 @@ function ce_filter( $content ) {
 				} elseif ( '_' === substr( $suffix, $res_pos + 4, 1 ) ) {
 					$responsive = true;
 					$max_width  = substr( $suffix, $res_pos + 5 );
-					if ( ! is_numeric( $max_width ) ) {
-						$max_width = '';
-					}
+					$max_width  = is_numeric( $max_width ) ? absint( $max_width ) : '';
 				}
 
 				if ( $responsive ) {
@@ -117,21 +112,10 @@ function ce_filter( $content ) {
 				$html = ce_get_embed_code( $options['keyword_ident'], $suffix, $author_allows_raw );
 			}
 
-			// Build the string to search for.
-
-			$search = $options['opening_ident'] . $options['keyword_ident'] . $full_suffix . $options['closing_ident'];
-
-			// Build the string of code to replace with.
-
-			$replace = ce_generate_code( $html, $responsive, $max_width );
-
-			// Now modify all references.
-
-			$content = str_replace( $search, $replace, $content );
-
-		}
-		$found_pos = strpos( $content, $options['opening_ident'] . $options['keyword_ident'], $found_pos + 1 );
-	}
+			return ce_generate_code( $html, $responsive, $max_width );
+		},
+		$content
+	);
 
 	// Loop around the post content looking for HTTP addresses.
 
@@ -219,7 +203,7 @@ function ce_generate_code( $html, $responsive = false, $max_width = false ) {
 	$code = '';
 
 	if ( false !== $max_width && '' !== $max_width ) {
-		$code .= '<div style="width: ' . $max_width . 'px; max-width: 100%">';
+		$code .= '<div style="' . esc_attr( 'width: ' . absint( $max_width ) . 'px; max-width: 100%' ) . '">';
 	}
 
 	if ( $responsive ) {
@@ -237,6 +221,38 @@ function ce_generate_code( $html, $responsive = false, $max_width = false ) {
 	}
 
 	return $code;
+}
+
+/**
+ * Strip Tokens From Tags
+ *
+ * Removes embed tokens that sit inside an HTML tag (an attribute value or name)
+ * rather than in body text.
+ *
+ * @param    string $content    Post content.
+ * @param    string $open       Opening identifier plus keyword (e.g. '{{CODE').
+ * @param    string $close      Closing identifier (e.g. '}}').
+ * @return   string             Post content with in-tag tokens removed.
+ */
+function ce_strip_tokens_from_tags( $content, $open, $close ) {
+	if ( false === stripos( $content, $open ) ) {
+		return $content;
+	}
+	$pattern   = '/' . preg_quote( $open, '/' ) . '.*?(?:' . preg_quote( $close, '/' ) . '|$)/is';
+	$processor = new WP_HTML_Tag_Processor( $content );
+	while ( $processor->next_tag() ) {
+		foreach ( (array) $processor->get_attribute_names_with_prefix( '' ) as $name ) {
+			if ( false !== stripos( $name, $open ) ) {
+				$processor->remove_attribute( $name );
+				continue;
+			}
+			$value = $processor->get_attribute( $name );
+			if ( is_string( $value ) && false !== stripos( $value, $open ) ) {
+				$processor->set_attribute( $name, preg_replace( $pattern, '', $value ) );
+			}
+		}
+	}
+	return $processor->get_updated_html();
 }
 
 /**
